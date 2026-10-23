@@ -241,7 +241,7 @@ main:focus { outline: none; }
 .stats dd { font-family: var(--serif); font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem); line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 
 /* ---------- Section heads ---------- */
-.units, .lab, .tests, .ask, .practice, .formulas, .terms, .about { padding-top: clamp(80px, 10vw, 140px); }
+.units, .lab, .tests, .exam, .ask, .practice, .formulas, .terms, .about { padding-top: clamp(80px, 10vw, 140px); }
 .sec-head { display: grid; gap: 12px; margin-bottom: clamp(24px, 3vw, 36px); max-width: 760px; }
 .sec-head-row { max-width: none; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; }
 .sec-head-row > div:not(.search) { display: grid; gap: 12px; max-width: 680px; }
@@ -285,6 +285,15 @@ main:focus { outline: none; }
 .ideas { list-style: none; counter-reset: idea; display: grid; gap: 12px; max-width: 72ch; }
 .ideas li { counter-increment: idea; position: relative; padding-left: 40px; }
 .ideas li::before { content: counter(idea); position: absolute; left: 0; top: 0; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-2); font-size: var(--t-micro); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.topics { max-width: 72ch; border-top: 1px solid var(--line); padding-top: 12px; }
+.topics > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: var(--t-small); transition: color .2s; }
+.topics > summary::-webkit-details-marker { display: none; }
+.topics > summary:hover { color: var(--ink); }
+.topics > summary .ico { width: 16px; height: 16px; transition: transform .25s var(--ease); }
+.topics[open] > summary .ico { transform: rotate(180deg); }
+.topic-list { list-style: none; display: grid; gap: 6px; padding: 12px 0 2px; }
+.topic-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; font-size: var(--t-small); color: var(--ink-2); line-height: 1.45; }
+.topic-list b { color: var(--violet-hi); font-weight: 500; font-variant-numeric: tabular-nums; }
 .u-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .u-actions .btn { white-space: normal; text-align: left; padding-top: 10px; padding-bottom: 10px; line-height: 1.35; }
 .u-actions .btn .ico { flex: none; }
@@ -401,6 +410,29 @@ input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px var(
 .tl li:last-child::before { background: var(--violet-hi); border-color: #fff; box-shadow: 0 0 0 5px rgba(139, 92, 246, .2); }
 .tl b { font-size: var(--t-micro); color: var(--violet-hi); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
 .tl p { max-width: 64ch; }
+
+/* ---------- The AP exam ---------- */
+.exam-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.exam-card { display: grid; gap: 14px; align-content: start; padding: clamp(22px, 3vw, 32px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.exam-card h3 { font-family: var(--serif); font-size: clamp(1.5rem, 1.25rem + .9vw, 2rem); letter-spacing: -.02em; line-height: 1.1; }
+.exam-note { color: var(--ink-2); font-size: var(--t-small); }
+.weights { list-style: none; display: grid; gap: 12px; }
+.weights li { display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 4px 12px; align-items: center; }
+.weights .w-name { font-size: var(--t-small); line-height: 1.35; }
+.weights .w-name b { color: var(--violet-hi); font-weight: 500; margin-right: 6px; }
+.weights .w-pct { text-align: right; font-size: var(--t-small); font-variant-numeric: tabular-nums; color: var(--ink); }
+.weights .w-bar { grid-column: 1 / -1; position: relative; height: 6px; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+.weights .w-bar span { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: linear-gradient(to right, var(--violet-btn), var(--violet-hi)); }
+.frq { list-style: none; display: grid; gap: 14px; counter-reset: frq; }
+.frq li { display: grid; gap: 2px; padding-left: 40px; position: relative; counter-increment: frq; }
+.frq li::before { content: counter(frq); position: absolute; left: 0; top: 0; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--violet-wash); border: 1px solid rgba(139, 92, 246, .45); color: var(--violet-hi); font-size: var(--t-micro); font-weight: 500; }
+.frq b { font-weight: 500; }
+.frq span { color: var(--ink-2); font-size: var(--t-small); }
+.exam-h { font-family: var(--serif); font-size: clamp(1.5rem, 1.3rem + .8vw, 2rem); letter-spacing: -.02em; margin: clamp(40px, 5vw, 56px) 0 8px; }
+.practices { margin: 20px 0 0; }
+.practices em { font-style: normal; color: var(--violet-hi); font-size: var(--t-micro); font-weight: 500; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.exam-src { margin-top: 18px; color: var(--ink-3); font-size: var(--t-micro); max-width: 72ch; }
+.exam-src a { color: var(--ink-2); }
 
 /* ---------- Ask (chat) ---------- */
 .ask-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
@@ -568,6 +600,7 @@ input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px var(
   .ask-grid { grid-template-columns: 1fr; }
   .ask-side { position: static; }
   .formula-list { grid-template-columns: 1fr; }
+  .exam-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 960px) {
   .exp, .test { grid-template-columns: 1fr; }

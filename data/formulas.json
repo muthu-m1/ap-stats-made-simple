@@ -4,15 +4,15 @@
   { "name": "z-score", "f": "z = (x − mean) ÷ SD", "plain": "How many standard deviations a value is from average." },
   { "name": "Regression line", "f": "ŷ = a + bx,  b = r · (s_y ÷ s_x)", "plain": "Predict y from x. The slope uses r and both spreads." },
   { "name": "Residual", "f": "residual = y − ŷ", "plain": "Actual minus predicted." },
+  { "name": "Complement rule", "f": "P(not A) = 1 − P(A)", "plain": "The chance something doesn't happen." },
   { "name": "\"Or\" rule", "f": "P(A or B) = P(A) + P(B) − P(A and B)", "plain": "Add the chances, then take away the overlap you counted twice." },
   { "name": "Conditional probability", "f": "P(A | B) = P(A and B) ÷ P(B)", "plain": "Zoom in on just the times B happened." },
   { "name": "Expected value", "f": "E(X) = Σ x · P(x)", "plain": "Each value times its chance, all added up." },
   { "name": "Binomial", "f": "P(X = k) = C(n, k) · pᵏ · (1 − p)ⁿ⁻ᵏ;  mean np, SD √(np(1 − p))", "plain": "The chance of exactly k successes in n tries." },
-  { "name": "Geometric", "f": "P(X = k) = (1 − p)ᵏ⁻¹ · p;  mean 1/p", "plain": "The chance the first success comes on try number k." },
   { "name": "Standard error of p̂", "f": "√( p̂(1 − p̂) ÷ n )", "plain": "How much a sample percent usually wobbles." },
   { "name": "Standard error of x̄", "f": "s ÷ √n", "plain": "How much a sample mean usually wobbles." },
   { "name": "Confidence interval", "f": "statistic ± (critical value) · (standard error)", "plain": "Your best guess, plus or minus a margin of error." },
   { "name": "Test statistic", "f": "(statistic − parameter) ÷ (standard error)", "plain": "How many standard errors your result is from what H₀ predicts." },
-  { "name": "Chi-square", "f": "χ² = Σ (O − E)² ÷ E", "plain": "Adds up how far each observed count is from the expected one." },
-  { "name": "Slope test", "f": "t = b ÷ SE_b,  df = n − 2", "plain": "How many standard errors the sample slope is from 0." }
+  { "name": "Expected count", "f": "(row total × column total) ÷ grand total", "plain": "The count you'd expect in a two-way table cell if the two variables weren't linked." },
+  { "name": "Chi-square", "f": "χ² = Σ (O − E)² ÷ E,  df = (rows − 1)(columns − 1)", "plain": "Adds up how far each observed count is from the expected one." }
 ]

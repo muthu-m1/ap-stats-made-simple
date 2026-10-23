@@ -1,178 +1,176 @@
 {
+  "source": "AP Statistics Course and Exam Description, effective Fall 2026",
   "groups": [
-    { "id": "explore", "label": "Exploring data" },
-    { "id": "collect", "label": "Collecting data" },
+    { "id": "explore", "label": "Exploring and collecting data" },
     { "id": "chance", "label": "Probability" },
-    { "id": "infer", "label": "Inference" }
+    { "id": "infer", "label": "Inference" },
+    { "id": "relate", "label": "Regression" }
   ],
   "units": [
     {
       "n": 1,
       "group": "explore",
-      "title": "Exploring One-Variable Data",
-      "kid": "Looking at one list of numbers",
-      "weight": "15–23%",
-      "summary": "Statistics starts with a list of [[data]]. In this unit you learn to draw it, find its middle, and see how spread out it is.",
-      "example": "Your class writes down how many minutes each kid reads at night. A [[histogram]] shows most kids read 20 to 30 minutes, and one kid reads 120. That kid is an [[outlier]].",
+      "title": "Exploring One-Variable Data and Collecting Data",
+      "kid": "Looking at data, and collecting it fairly",
+      "weight": "20–30%",
+      "periods": 26,
+      "summary": "Every statistical study starts with an [[investigative|investigative question]] and some [[data]]. In this unit you learn to graph one variable, describe it with numbers, and collect data in a fair way.",
+      "example": "Investigative question: “How many minutes do students at our school read each night?” A [[histogram]] for 50 randomly chosen students shows most read 20 to 30 minutes, and one reads 120. That student is an [[outlier]].",
       "ideas": [
-        "Is it a [[categorical|category]] or a [[quantitative|number]]? That decides the graph: bar charts for categories; [[histogram|histograms]], dotplots and [[boxplot|boxplots]] for numbers.",
-        "Always describe four things, in the story's words: shape, outliers, center and spread. A memory trick: SOCS.",
-        "Center: the [[mean]] is the average and the [[median]] is the middle. If the data is [[skewed]], the mean gets pulled toward the long tail.",
-        "Spread: [[sd|standard deviation]] goes with the mean, and [[iqr|IQR]] goes with the median.",
+        "A study starts with an [[investigative|investigative question]] about a group, like “How much sleep do 9th graders at our school get?” Then you name the [[population]], the [[sample]] and the [[variable|variables]].",
+        "Is the variable a [[categorical|category]] or a [[quantitative|number]]? Categories go in tables, bar graphs and pie charts. Numbers go in dotplots, [[histogram|histograms]] and [[boxplot|boxplots]].",
+        "Describe a graph of numbers by its shape, center, spread and any unusual values, always in the story's words.",
+        "Center: the [[mean]] (average) or the [[median]] (middle). Spread: [[sd|standard deviation]], [[iqr|IQR]] or [[range]]. If the data is [[skewed]] or has outliers, the median and IQR are safer.",
         "A [[zscore|z-score]] says how many standard deviations a value is from the mean, so you can compare things on different scales.",
-        "Lots of shapes are close to the [[normal|normal curve]]. Use the [[empirical|68–95–99.7 rule]] for quick estimates."
+        "Collecting data: a [[census]] asks everyone and a sample asks some. Random samples ([[srs|SRS]], [[stratified|stratified]], [[cluster|cluster]]) help avoid [[bias]]. An [[experiment]] with [[randomassign|random assignment]] can show cause and effect; an [[observational|observational study]] can't."
       ],
-      "watch": "Don't just list numbers. Say what they mean in the story: \"The median reading time is 25 minutes,\" not just \"median = 25.\"",
-      "ask": "What's the difference between mean and median, and when should I use each one?"
+      "watch": "Random sampling and random assignment do different jobs. Sampling is about WHO is in the study, so you can talk about the whole population. Assignment is about WHICH treatment each person gets, so you can talk about cause and effect.",
+      "ask": "What's the difference between random sampling and random assignment?",
+      "topics": [
+        ["1.1", "Introducing Statistics: What Can We Learn from Data?"],
+        ["1.2", "Variables"],
+        ["1.3", "Tabular Representation and Summary Statistics for One Categorical Variable"],
+        ["1.4", "Graphical Representations for One Categorical Variable"],
+        ["1.5", "Graphical Representations for One Quantitative Variable"],
+        ["1.6", "Descriptions for One Quantitative Variable Distributions"],
+        ["1.7", "Summary Statistics for One Quantitative Variable"],
+        ["1.8", "Graphical Representations of Summary Statistics for One Quantitative Variable"],
+        ["1.9", "Comparisons of the Distributions for One Quantitative Variable"],
+        ["1.10", "The Investigative Question Revisited and Data Collection"],
+        ["1.11", "Random Sampling"],
+        ["1.12", "Potential Problems with Sampling"],
+        ["1.13", "Experimental Design"]
+      ]
     },
     {
       "n": 2,
-      "group": "explore",
-      "title": "Exploring Two-Variable Data",
-      "kid": "How two things go together",
-      "weight": "5–7%",
-      "summary": "Now you look at two things at once, like hours of sleep and test scores, to see if they move together.",
-      "example": "Plot hours studied against test score. The dots climb up and to the right in a fairly straight line, so there's a strong, positive relationship.",
+      "group": "chance",
+      "title": "Probability, Random Variables, and Probability Distributions",
+      "kid": "Chance, and the shapes data make",
+      "weight": "15–25%",
+      "periods": 24,
+      "summary": "[[probability|Probability]] is the math of chance. You'll read [[twoway|two-way tables]], run [[simulation|simulations]], learn the probability rules, and meet three famous shapes: the binomial, the normal curve and sampling distributions.",
+      "example": "A spinner is one-quarter red. Spin it 1,000 times and about 250 spins land on red. That's the [[lawlarge|law of large numbers]].",
       "ideas": [
-        "Two categories? Use a two-way table and compare percents, not raw counts.",
-        "Two numbers? Make a [[scatterplot]] and describe direction, form, strength and unusual points.",
-        "[[correlation|Correlation (r)]] runs from −1 to 1. Near ±1 is strong; near 0 is weak. It only measures straight-line patterns.",
-        "The [[lsrl|regression line]] ŷ = a + bx predicts y. Explain the [[slope]] in context: \"for each extra hour, the predicted score goes up b points.\"",
-        "A [[residual]] is actual minus predicted. A residual plot with no pattern means a straight line is a good fit.",
-        "[[r2|r²]] tells you what percent of the change in y the line explains."
+        "Two category variables go in a [[twoway|two-way table]]. Compare percents, not raw counts, to see if they're linked.",
+        "A [[simulation]] uses random numbers, like coin flips or a computer, to estimate a probability by trying something many times.",
+        "Probability rules: P(not A) = 1 − P(A). “Or”: P(A or B) = P(A) + P(B) − P(A and B). “And” for [[independent]] events: P(A) × P(B). [[conditional|Conditional]]: P(A | B) = P(A and B) ÷ P(B).",
+        "A [[randomvar|random variable]] has an [[expected|expected value]] (its long-run average) and a standard deviation.",
+        "[[binomial|Binomial]]: a set number of tries, each one yes or no with the same chance. Count the successes.",
+        "The [[normal|normal curve]] and the [[empirical|68–95–99.7 rule]] give percents. A [[samplingdist|sampling distribution]] shows how a statistic changes from sample to sample, and the [[clt|central limit theorem]] says sample means make a bell shape when samples are big."
       ],
-      "watch": "Correlation is not causation. Ice cream sales and sunburns rise together, but ice cream doesn't cause sunburns. Hot weather causes both.",
-      "ask": "How do I explain the slope of a regression line in context?"
+      "watch": "[[mutex|Mutually exclusive]] is not the same as independent. If two things can't happen together, knowing one happened changes the chance of the other a lot.",
+      "ask": "How do I know if something is a binomial setting?",
+      "topics": [
+        ["2.1", "Tabular and Graphical Representations for the Distributions of Two Categorical Variables"],
+        ["2.2", "Summary Statistics for Two Categorical Variables"],
+        ["2.3", "Estimating Probabilities Using Simulation"],
+        ["2.4", "Introduction to Probability"],
+        ["2.5", "Mutually Exclusive Events"],
+        ["2.6", "Conditional Probability"],
+        ["2.7", "Independent Events and Unions of Events"],
+        ["2.8", "Introduction to Random Variables and Probability Distributions"],
+        ["2.9", "Parameters of Random Variables"],
+        ["2.10", "The Binomial Distribution"],
+        ["2.11", "The Normal Distribution"],
+        ["2.12", "Sampling Distributions and the Central Limit Theorem"]
+      ]
     },
     {
       "n": 3,
-      "group": "collect",
-      "title": "Collecting Data",
-      "kid": "Getting good data",
-      "weight": "12–15%",
-      "summary": "Bad data gives bad answers, no matter how good your math is. This unit is about picking fair samples and running fair experiments.",
-      "example": "To learn what your school thinks of lunch, you could ask only your friends (unfair) or pick 50 random student ID numbers (fair).",
+      "group": "infer",
+      "title": "Inference for Categorical Data: Proportions",
+      "kid": "Guessing percents from samples",
+      "weight": "15–25%",
+      "periods": 30,
+      "summary": "Now you use a sample to say something about everyone, like “about 58% of all students want school to start later.” You'll build [[ci|confidence intervals]], run significance tests, and use chi-square tests on two-way tables.",
+      "example": "In a random sample of 200 students, 116 (58%) want a later start. A 95% confidence interval says the true percent is probably between 51% and 65%.",
       "ideas": [
-        "The [[population]] is everyone you care about. The [[sample]] is who you actually ask.",
-        "Random ways to sample: [[srs|simple random sample]], [[stratified|stratified]], [[cluster|cluster]] and systematic.",
-        "[[bias|Bias]] sneaks in through convenience samples, voluntary response (only people who care answer), undercoverage, nonresponse and leading questions.",
-        "An [[observational|observational study]] only watches. An [[experiment]] gives [[treatment|treatments]].",
-        "Good experiments have comparison (a [[control|control group]]), [[randomassign|random assignment]], enough subjects, and the same conditions for everyone. [[blinding|Blinding]] helps too.",
-        "Random sampling lets you talk about the whole population. Random assignment lets you talk about cause and effect."
+        "A good [[statistic]] is [[unbiased]]: it's centered on the truth. The sample proportion p̂ estimates the population proportion p.",
+        "A confidence interval is estimate ± [[marginoferror|margin of error]]. For one proportion: p̂ ± z*·√(p̂(1 − p̂)/n). The [[confidencelevel|confidence level]] is how often the method catches the truth.",
+        "A significance test asks “could this just be luck?” Write [[hypothesis|hypotheses]] about p, check the [[conditions]], find the [[pvalue|p-value]], and compare it to [[alpha|α]].",
+        "Mistakes happen: a [[type1|Type I error]] is a false alarm, a [[type2|Type II error]] is a missed alarm, and [[power]] is the chance of catching a real effect.",
+        "Two groups? Use the difference p̂₁ − p̂₂ to estimate or test p₁ − p₂.",
+        "Two category variables in a two-way table? A [[chisquare|chi-square]] test for homogeneity or independence checks whether the counts fit the [[expectedcounts|expected counts]] for “no link.”"
       ],
-      "watch": "Random sampling and random assignment do different jobs. Sampling is about WHO is in the study. Assignment is about WHICH treatment each person gets.",
-      "ask": "What's the difference between random sampling and random assignment?"
+      "watch": "Don't say “there's a 95% chance the true value is in my interval.” Say “We are 95% confident the interval from __ to __ captures the true proportion of __.”",
+      "ask": "What does a p-value actually mean?",
+      "topics": [
+        ["3.1", "Estimators"],
+        ["3.2", "Sampling Distributions for Sample Proportions"],
+        ["3.3", "Constructing a Confidence Interval for a Population Proportion"],
+        ["3.4", "Justifying a Claim Based on a Confidence Interval for a Population Proportion"],
+        ["3.5", "Setting Up a Test for a Population Proportion"],
+        ["3.6", "p-Values"],
+        ["3.7", "Carrying Out a Test for a Population Proportion"],
+        ["3.8", "Potential Errors When Performing Tests"],
+        ["3.9", "Sampling Distributions for the Difference Between Sample Proportions"],
+        ["3.10", "Constructing a Confidence Interval for the Difference Between Two Population Proportions"],
+        ["3.11", "Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Proportions"],
+        ["3.12", "Setting Up a Test for the Difference Between Two Population Proportions"],
+        ["3.13", "Carrying Out a Test for the Difference Between Two Population Proportions"],
+        ["3.14", "Setting Up a Chi-Square Test for Homogeneity or Independence"],
+        ["3.15", "Carrying Out a Chi-Square Test for Homogeneity or Independence"]
+      ]
     },
     {
       "n": 4,
-      "group": "chance",
-      "title": "Probability, Random Variables, and Probability Distributions",
-      "kid": "Chance and luck, with numbers",
+      "group": "infer",
+      "title": "Inference for Quantitative Data: Means",
+      "kid": "Guessing averages from samples",
       "weight": "10–20%",
-      "summary": "[[probability|Probability]] is the math of chance. You'll work out how likely things are and what happens on average in the long run.",
-      "example": "A spinner is one-quarter red. Spin it 1,000 times and about 250 spins land on red. That's the [[lawlarge|law of large numbers]].",
+      "periods": 18,
+      "summary": "The same big ideas as Unit 3, but for averages. Because we don't know σ, we use the [[tdist|t-distribution]] instead of z.",
+      "example": "A random sample of 25 batteries lasts 9.6 hours on average. The box says 10 hours. A t-test tells you if 9.6 is too low to blame on luck.",
       "ideas": [
-        "A probability is between 0 and 1, and all the possible outcomes add up to 1.",
-        "\"Or\" rule: P(A or B) = P(A) + P(B) − P(A and B). \"And\" rule for [[independent]] events: P(A and B) = P(A) × P(B).",
-        "[[conditional|Conditional probability]]: P(A | B) = P(A and B) ÷ P(B). Two-way tables and tree diagrams make these easier.",
-        "A [[randomvar|random variable]] has an [[expected|expected value]] (its long-run average) and a standard deviation.",
-        "[[binomial|Binomial]]: a set number of tries, count the successes. [[geometric|Geometric]]: count the tries until the first success.",
-        "Combining independent random variables: means add, and variances (SD²) add. Even when you subtract, the variances still add."
+        "The sample mean x̄ has a sampling distribution centered at μ, with standard deviation σ/√n. It's about normal if the population is normal or n ≥ 30.",
+        "Use t, not z, for means: x̄ ± t*·s/√n, with [[df|df]] = n − 1.",
+        "Normal condition: n ≥ 30, OR the population is normal, OR a graph of the sample shows no strong skew or outliers.",
+        "[[paired|Paired data]] (the same people measured twice): subtract to get one list of differences, then use one-sample t on the mean difference.",
+        "Two separate groups: estimate or test μ₁ − μ₂ with a two-sample t procedure.",
+        "Bigger samples and less spread make intervals narrower and tests more [[power|powerful]]."
       ],
-      "watch": "[[mutex|Mutually exclusive]] is not the same as independent. If two things can't happen together, knowing one happened changes the chance of the other a lot.",
-      "ask": "How do I know if a problem is binomial or geometric?"
+      "watch": "Two lists from the same people (before and after) is paired, not two-sample. Ask: is each number in list 1 linked to one number in list 2?",
+      "ask": "How do I tell paired data from two independent samples?",
+      "topics": [
+        ["4.1", "Sampling Distributions for Sample Means"],
+        ["4.2", "Constructing a Confidence Interval for a Population Mean or Population Mean Difference"],
+        ["4.3", "Justifying a Claim Based on a Confidence Interval for a Population Mean or Population Mean Difference"],
+        ["4.4", "Setting Up a Test for a Population Mean or Population Mean Difference"],
+        ["4.5", "Carrying Out a Test for a Population Mean or Population Mean Difference"],
+        ["4.6", "Sampling Distributions for the Difference Between Two Sample Means"],
+        ["4.7", "Constructing a Confidence Interval for the Difference Between Two Population Means"],
+        ["4.8", "Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Means"],
+        ["4.9", "Setting Up a Test for the Difference Between Two Population Means"],
+        ["4.10", "Carrying Out a Test for the Difference Between Two Population Means"]
+      ]
     },
     {
       "n": 5,
-      "group": "chance",
-      "title": "Sampling Distributions",
-      "kid": "Why samples wobble",
-      "weight": "7–12%",
-      "summary": "Every sample gives a slightly different answer. This unit shows how much answers wobble, so you can trust them the right amount.",
-      "example": "Five classes each ask 30 random students if they like pizza best. They get 55%, 61%, 58%, 52% and 60%. None is exactly right, but they cluster around the truth.",
+      "group": "relate",
+      "title": "Regression Analysis",
+      "kid": "How two numbers go together",
+      "weight": "10–20%",
+      "periods": 9,
+      "summary": "Now you look at two number variables at once, like hours of sleep and test scores, and fit a line that predicts one from the other.",
+      "example": "Plot hours studied against test score. The dots climb up and to the right in a fairly straight line, so there's a strong, positive relationship.",
       "ideas": [
-        "A [[parameter]] describes the population and is usually unknown. A [[statistic]] comes from a sample.",
-        "A [[samplingdist|sampling distribution]] shows all the values a statistic could take across many samples.",
-        "Bigger samples wobble less. The spread shrinks with √n, so four times the sample size cuts the [[standarderror|standard error]] in half.",
-        "For proportions: the center is p and the SD is √(p(1 − p)/n). It's about normal when np ≥ 10 and n(1 − p) ≥ 10.",
-        "For means: the center is μ and the SD is σ/√n. The [[clt|central limit theorem]] says it's about normal when n ≥ 30.",
-        "A good statistic is [[unbiased]] (centered on the truth) and has low variability."
+        "Make a [[scatterplot]] and describe its direction, form, strength and unusual points.",
+        "[[correlation|Correlation (r)]] runs from −1 to 1. Near ±1 is strong; near 0 is weak. It only measures straight-line patterns.",
+        "A regression line ŷ = a + bx predicts y. Explain the [[slope]] in context: “for each extra hour, the predicted score goes up b points.”",
+        "A [[residual]] is actual minus predicted. A residual plot with no pattern means a straight line fits well.",
+        "The [[lsrl|least-squares regression line]] makes the squared residuals as small as possible. [[r2|r²]] tells what percent of the change in y the line explains.",
+        "Be careful with [[extrapolation]]: predicting far outside your data is risky."
       ],
-      "watch": "The central limit theorem is about the shape of the sample MEANS, not the shape of one sample or of the population.",
-      "ask": "Can you explain the central limit theorem like I'm 10?"
-    },
-    {
-      "n": 6,
-      "group": "infer",
-      "title": "Inference for Categorical Data: Proportions",
-      "kid": "Guessing a percent from a sample",
-      "weight": "12–15%",
-      "summary": "Now you use a sample to say something about everyone, like \"about 58% of all students want school to start later.\"",
-      "example": "In a random sample of 200 students, 116 (58%) want a later start. A 95% [[ci|confidence interval]] says the true percent is probably between 51% and 65%.",
-      "ideas": [
-        "A confidence interval is estimate ± [[marginoferror|margin of error]]. For a proportion: p̂ ± z*·√(p̂(1 − p̂)/n).",
-        "The [[confidencelevel|confidence level]] (like 95%) is about the method: 95% of intervals made this way catch the truth.",
-        "A significance test asks \"could this just be luck?\" Start with [[hypothesis|hypotheses]]: H₀: p = p₀ against Hₐ: p > p₀, p < p₀ or p ≠ p₀.",
-        "The [[pvalue|p-value]] is the chance of results this extreme if H₀ were true. If the p-value is below [[alpha|α]], reject H₀.",
-        "Mistakes happen: a [[type1|Type I error]] is a false alarm and a [[type2|Type II error]] is a missed alarm.",
-        "Always check the [[conditions]]: Random, 10%, and Large counts (at least 10 successes and 10 failures)."
-      ],
-      "watch": "Don't say \"there's a 95% chance the true value is in my interval.\" Say \"We are 95% confident the interval from __ to __ captures the true proportion of __.\"",
-      "ask": "What does a p-value actually mean?"
-    },
-    {
-      "n": 7,
-      "group": "infer",
-      "title": "Inference for Quantitative Data: Means",
-      "kid": "Guessing an average from a sample",
-      "weight": "10–18%",
-      "summary": "The same big ideas as Unit 6, but for averages. Because we don't know σ, we use the [[tdist|t-distribution]] instead of z.",
-      "example": "A random sample of 25 batteries lasts 9.6 hours on average. The box says 10 hours. A t-test tells you if 9.6 is too low to blame on luck.",
-      "ideas": [
-        "Use t, not z, for means: x̄ ± t*·s/√n, with [[df|df]] = n − 1.",
-        "Normal condition: n ≥ 30, OR the population is normal, OR a graph of the sample shows no strong skew or outliers.",
-        "One sample, two separate samples, or [[paired|paired data]]? Pick the matching test.",
-        "For paired data (before and after on the same people), subtract to get one list of differences, then do a one-sample t on those differences.",
-        "Bigger samples and less variation make intervals narrower and tests more [[power|powerful]]."
-      ],
-      "watch": "Two lists from the same people (before and after) is paired, not two-sample. Ask: is each number in list 1 linked to one number in list 2?",
-      "ask": "How do I tell paired data from two independent samples?"
-    },
-    {
-      "n": 8,
-      "group": "infer",
-      "title": "Inference for Categorical Data: Chi-Square",
-      "kid": "Do the counts fit?",
-      "weight": "2–5%",
-      "summary": "Chi-square tests check whether counts in categories match what you'd expect, or whether two category variables are linked.",
-      "example": "A candy bag should be 20% each of five colors. You count 100 candies and get 30 red. A chi-square test checks if that's too far off to be luck.",
-      "ideas": [
-        "[[chisquare|χ²]] = Σ (observed − expected)² ÷ expected. A bigger χ² means a worse fit.",
-        "Goodness of fit: one variable compared to a claimed distribution. df = number of categories − 1.",
-        "Independence (one sample, two variables) or homogeneity (several groups, one variable): use a two-way table, with df = (rows − 1)(columns − 1).",
-        "[[expectedcounts|Expected counts]] in a two-way table: (row total × column total) ÷ grand total.",
-        "Conditions: Random, 10%, and every expected count at least 5."
-      ],
-      "watch": "Check \"at least 5\" with the expected counts, not the observed ones.",
-      "ask": "When do I use chi-square goodness of fit vs independence?"
-    },
-    {
-      "n": 9,
-      "group": "infer",
-      "title": "Inference for Quantitative Data: Slopes",
-      "kid": "Is the line real?",
-      "weight": "2–5%",
-      "summary": "A regression line from a sample might show a slope just by luck. This unit tests whether the true slope is really different from zero.",
-      "example": "In a sample of 20 kids, more screen time goes with less sleep (slope −0.4). Is there a real link for all kids, or could the true slope be 0?",
-      "ideas": [
-        "The sample [[slope]] b estimates the true slope β.",
-        "Hypotheses: H₀: β = 0 (no straight-line relationship) against Hₐ: β ≠ 0, β > 0 or β < 0.",
-        "Interval: b ± t*·SE_b, with df = n − 2. Computer output usually gives you b and SE_b.",
-        "[[teststat|Test statistic]]: t = b ÷ SE_b.",
-        "Conditions (LINER): Linear, Independent, Normal residuals, Equal spread of residuals, Random."
-      ],
-      "watch": "Read computer output carefully: the slope is the \"Coef\" next to the x variable, not the one next to \"Constant.\"",
-      "ask": "How do I read regression computer output on the AP exam?"
+      "watch": "Correlation is not causation. Ice cream sales and sunburns rise together, but ice cream doesn't cause sunburns. Hot weather causes both.",
+      "ask": "How do I explain the slope of a regression line in context?",
+      "topics": [
+        ["5.1", "Graphical Representations Between Two Quantitative Variables"],
+        ["5.2", "Correlation"],
+        ["5.3", "Linear Regression Models"],
+        ["5.4", "Residuals"],
+        ["5.5", "Least-Squares Regression"]
+      ]
     }
   ]
 }

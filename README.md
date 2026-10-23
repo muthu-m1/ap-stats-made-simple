@@ -1,12 +1,16 @@
 # AP Stats, Made Simple
 
-A free AP Statistics study guide written in plain, 5th-grade-level words: all nine units, an interactive stats lab,
-step-by-step test walkthroughs, practice questions, a cheat sheet, key terms, and Stat Buddy, an AI tutor.
+A free AP Statistics study guide written in plain, 5th-grade-level words: all five units of the course that starts in
+Fall 2026 (with their official topics), how the exam works, an interactive stats lab, step-by-step test walkthroughs,
+practice questions, a cheat sheet, key terms, and Stat Buddy, an AI tutor. The course structure follows College Board's
+[AP Statistics Course and Exam Description](https://apcentral.collegeboard.org/media/pdf/ap-statistics-course-and-exam-description.pdf)
+(effective Fall 2026); the explanations are this site's own.
 A static site with no trackers and no accounts; the only server is the free tutor Worker. Same design system as [World Right Now](https://github.com/muthu-m1/world-right-now).
 
 - `index.html`, `assets/` – the site. `assets/board.js` is the hero's Galton board, `assets/lab.js` the four lab experiments,
   `assets/tutor.js` the AI tutor.
-- `data/` – the lessons (`units.json`), key terms, test walkthroughs, practice questions and formulas.
+- `data/` – the lessons (`units.json`, with each unit's exam weighting and official topic list), key terms, test
+  walkthroughs, practice questions and formulas.
 - `assets/vendor/anthropic.js` – the official Anthropic TypeScript SDK, bundled for the browser by `npm run sdk`.
 - `scripts/validate.mjs` – checks the data (every `[[term]]` link exists, every question has an answer).
 

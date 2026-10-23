@@ -33,6 +33,7 @@ async function main() {
   tutor = startTutor({ terms, units: unitData.units });
   renderStats(unitData.units, terms, tests, quiz);
   renderUnits(unitData);
+  renderExam(unitData.units);
   renderTests(tests);
   renderQuiz(quiz);
   renderFormulas(formulas);
@@ -84,7 +85,7 @@ function wireChrome() {
 }
 
 function wireReveal() {
-  const els = $$(".sec-head, .toolbar, .exp, .pick, .test, .chat, .qcard, .formula-list, .term-grid, .block");
+  const els = $$(".sec-head, .toolbar, .exp, .pick, .test, .exam-card, .chat, .qcard, .formula-list, .term-grid, .block");
   if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
@@ -114,7 +115,7 @@ function renderUnits({ groups, units }) {
   list.innerHTML = units.map((u) => `
     <li class="row" id="unit-${u.n}" data-group="${u.group}">
       <button class="row-head" type="button" aria-expanded="false" aria-controls="unit-${u.n}-body">
-        <span class="u-num"><b>Unit <span>${u.n}</span></b><small>${esc(u.weight)} of the exam</small></span>
+        <span class="u-num"><b>Unit <span>${u.n}</span></b><small>${esc(u.weight)} of multiple choice</small></span>
         <span class="u-title"><strong>${esc(u.kid)}</strong><span>${esc(u.title)}</span></span>
         <span class="u-group">${esc(groupLabel[u.group])}</span>
         <svg class="ico" aria-hidden="true"><use href="#i-chev"/></svg>
@@ -125,6 +126,10 @@ function renderUnits({ groups, units }) {
         <p class="ideas-h">The big ideas</p>
         <ol class="ideas">${u.ideas.map((i) => `<li>${rich(i, termById)}</li>`).join("")}</ol>
         <div class="callout warn"><p class="callout-k"><svg class="ico" aria-hidden="true"><use href="#i-warn"/></svg>Watch out</p><p>${rich(u.watch, termById)}</p></div>
+        <details class="topics">
+          <summary>All ${u.topics.length} official topics · about ${u.periods} class periods<svg class="ico" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <ol class="topic-list">${u.topics.map(([n, t]) => `<li><b>${esc(n)}</b><span>${esc(t)}</span></li>`).join("")}</ol>
+        </details>
         <div class="u-actions">
           <button class="btn" type="button" data-ask="${esc(u.ask)}"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Ask: “${esc(u.ask)}”</button>
           <a class="btn btn-ghost" href="#practice" data-practice="${u.n}">Practice Unit ${u.n}</a>
@@ -174,7 +179,7 @@ function toggleRow(head, open) {
 function unitText(u) {
   const ids = [...JSON.stringify(u).matchAll(/\[\[([a-z0-9]+)/g)].map((m) => m[1]);
   const defs = ids.map((id) => termById.get(id)).filter(Boolean).map((t) => `${t.term} ${t.def}`);
-  return [u.title, u.kid, u.summary, u.example, u.watch, ...u.ideas, ...defs].join(" ")
+  return [u.title, u.kid, u.summary, u.example, u.watch, ...u.ideas, ...u.topics.map(([, t]) => t), ...defs].join(" ")
     .replace(/\[\[[a-z0-9]+\|([^\]]+)\]\]/g, "$1").replace(/\[\[([a-z0-9]+)\]\]/g, "$1");
 }
 
@@ -284,6 +289,18 @@ function wireTermPop() {
   });
 }
 
+/* ---------- The AP exam: multiple-choice weight of each unit ---------- */
+function renderExam(units) {
+  const SCALE = 35; // the widest range runs to 30%, so bars stop short of full width
+  $("#weights").innerHTML = units.map((u) => {
+    const [lo, hi] = u.weight.match(/\d+/g).map(Number);
+    return `<li>
+      <span class="w-name"><b>Unit ${u.n}</b>${esc(u.title)}</span><span class="w-pct">${esc(u.weight)}</span>
+      <span class="w-bar" aria-hidden="true"><span style="left:0;width:${(lo / SCALE) * 100}%;opacity:.45"></span><span style="left:${(lo / SCALE) * 100}%;width:${((hi - lo) / SCALE) * 100}%"></span></span>
+    </li>`;
+  }).join("");
+}
+
 /* ---------- Tests ---------- */
 function renderTests(tests) {
   $("#test-tabs").innerHTML = tests.map((t, i) =>
@@ -314,8 +331,12 @@ function renderTests(tests) {
 let quizReset = null;
 let showPractice = () => {};
 
+// Saved answers are keyed by question number; the key changed when the questions were redone for the
+// Fall 2026 course, so older saved answers can't mark the wrong questions.
+const QUIZ_KEY = "quiz-2026";
+
 function renderQuiz(quiz) {
-  const saved = store.get("quiz", {});
+  const saved = store.get(QUIZ_KEY, {});
   const list = $("#quiz");
   const letters = "ABCD";
   let unit = "all";
@@ -364,7 +385,7 @@ function renderQuiz(quiz) {
     if (b && !b.disabled) {
       const i = Number(b.dataset.q);
       saved[i] = Number(b.dataset.c);
-      store.set("quiz", saved);
+      store.set(QUIZ_KEY, saved);
       mark(i, saved[i]);
       score();
       return;
@@ -378,7 +399,7 @@ function renderQuiz(quiz) {
 
   quizReset = () => {
     for (const k of Object.keys(saved)) delete saved[k];
-    store.del("quiz");
+    store.del(QUIZ_KEY);
     $$(".qcard", list).forEach((card) => {
       card.classList.remove("is-right", "is-wrong");
       $(".why", card).hidden = true;

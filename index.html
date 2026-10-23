@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AP Stats, Made Simple</title>
-<meta name="description" content="A free AP Statistics study guide written in plain, 5th-grade-level words: all nine units, interactive visual labs, step-by-step test walkthroughs, practice questions and an AI tutor you can ask anything.">
+<meta name="description" content="A free AP Statistics study guide written in plain, 5th-grade-level words: all five units of the Fall 2026 course, interactive visual labs, step-by-step test walkthroughs, practice questions and an AI tutor you can ask anything.">
 <meta property="og:title" content="AP Stats, Made Simple">
 <meta property="og:description" content="AP Statistics in plain words, with interactive labs, practice questions and an AI tutor.">
 <meta name="theme-color" content="#08090D">
@@ -46,6 +46,7 @@
       <a href="#units">Units</a>
       <a href="#lab">Lab</a>
       <a href="#tests">Tests</a>
+      <a href="#exam">Exam</a>
       <a href="#ask">Ask the tutor</a>
       <a href="#practice">Practice</a>
       <a href="#key-terms">Key terms</a>
@@ -65,7 +66,7 @@
 <main id="main" tabindex="-1">
   <section class="hero" id="top" aria-labelledby="hero-h">
     <div class="wrap hero-copy">
-      <p class="edition"><span class="pulse" aria-hidden="true"></span><span>Free study guide · all 9 units · plain words a 5th grader would get</span></p>
+      <p class="edition"><span class="pulse" aria-hidden="true"></span><span>Free study guide · updated for the Fall 2026 course · plain words a 5th grader would get</span></p>
       <h1 id="hero-h">AP Stats, made simple</h1>
       <p class="deck">Every big idea in AP Statistics, explained like a friend would explain it. Play with the ideas in the lab, practice for the exam, and ask the AI tutor anything.</p>
       <div class="hero-find">
@@ -94,8 +95,8 @@
   <section class="units" id="units" aria-labelledby="units-h">
     <div class="wrap">
       <div class="sec-head">
-        <h2 id="units-h">The nine units</h2>
-        <p class="sec-sub">Everything on the AP exam, one unit at a time. Each one says how much of the exam it covers. Open a unit for the big ideas, an everyday example and the mistake to watch for.</p>
+        <h2 id="units-h">The five units</h2>
+        <p class="sec-sub">Everything on the AP exam, in the five units of the course that starts in Fall 2026. Each one says how much of the multiple-choice section it covers. Open a unit for the big ideas, an everyday example, the mistake to watch for and its official topics.</p>
       </div>
 
       <div class="toolbar">
@@ -131,7 +132,7 @@
 
       <div class="exp" role="tabpanel" id="p-bell" aria-labelledby="t-bell">
         <div class="exp-text">
-          <p class="exp-k">Unit 1 · z-scores</p>
+          <p class="exp-k">Units 1 and 2 · z-scores and the normal curve</p>
           <h3>How much of the curve is shaded?</h3>
           <p class="exp-intro">A z-score says how many standard deviations (steps) you are from the middle. Slide it and watch the shaded part. The shaded area is the percent of values in that part.</p>
           <div class="chips" role="group" aria-label="Which part to shade" id="bell-mode">
@@ -150,7 +151,7 @@
 
       <div class="exp" role="tabpanel" id="p-clt" aria-labelledby="t-clt" hidden>
         <div class="exp-text">
-          <p class="exp-k">Unit 5 · central limit theorem</p>
+          <p class="exp-k">Unit 2 · central limit theorem</p>
           <h3>Grab samples, graph their means</h3>
           <p class="exp-intro">The top picture is the whole population. Each sample grabs n values and finds their mean. The bottom graph collects those means. Watch it turn into a bell, even when the top isn't one.</p>
           <div class="chips" role="group" aria-label="Population shape" id="clt-pop">
@@ -174,7 +175,7 @@
 
       <div class="exp" role="tabpanel" id="p-ci" aria-labelledby="t-ci" hidden>
         <div class="exp-text">
-          <p class="exp-k">Unit 6 · confidence intervals</p>
+          <p class="exp-k">Unit 3 · confidence intervals</p>
           <h3>How often does the net catch the fish?</h3>
           <p class="exp-intro">Pretend we know the truth: 60% of all students like pizza best. Each line is one sample's confidence interval. Purple lines catch the true 60%. Orange lines miss it. About 95% of 95% intervals should catch it.</p>
           <div class="chips" role="group" aria-label="Confidence level" id="ci-level">
@@ -198,7 +199,7 @@
 
       <div class="exp" role="tabpanel" id="p-line" aria-labelledby="t-line" hidden>
         <div class="exp-text">
-          <p class="exp-k">Unit 2 · regression</p>
+          <p class="exp-k">Unit 5 · regression</p>
           <h3>Click to add dots, watch the line</h3>
           <p class="exp-intro">Click or tap the graph to add points. The line of best fit and the correlation r update each time. Try adding one far-away point and see how much it pulls the line.</p>
           <label class="switch">
@@ -225,13 +226,50 @@
         <p class="sec-sub">Every inference question on the exam uses the same four steps: State, Plan, Do, Conclude. First ask what kind of data you have.</p>
       </div>
       <ul class="pick" aria-label="How to pick a test">
-        <li><b>Yes/no answers?</b><span>Percents: use a z-test for proportions.</span></li>
-        <li><b>Numbers you can average?</b><span>Means: use a t-test.</span></li>
-        <li><b>Counts in many categories?</b><span>Use a chi-square test.</span></li>
-        <li><b>A line through dots?</b><span>Use a t-test for the slope.</span></li>
+        <li><b>Yes/no answers?</b><span>Percents: use z for one or two proportions.</span></li>
+        <li><b>Numbers you can average?</b><span>Means: use t for one or two means.</span></li>
+        <li><b>Same people measured twice?</b><span>Paired data: use t on the differences.</span></li>
+        <li><b>Two category variables?</b><span>A two-way table: use a chi-square test.</span></li>
       </ul>
       <div class="tabs" role="tablist" aria-label="Inference tests" id="test-tabs"></div>
       <div id="test-panels"></div>
+    </div>
+  </section>
+
+  <section class="exam" id="exam" aria-labelledby="exam-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="exam-h">The AP exam</h2>
+        <p class="sec-sub">How the exam works for the course that starts in Fall 2026. It's 3 hours long, and you can use a graphing calculator and the formula sheet in both sections.</p>
+      </div>
+      <div class="exam-grid">
+        <div class="exam-card">
+          <p class="exp-k">Section I · 90 minutes · 50% of your score</p>
+          <h3>42 multiple-choice questions</h3>
+          <p class="exam-note">Every unit shows up. About how much of this section comes from each one:</p>
+          <ul class="weights" id="weights"></ul>
+        </div>
+        <div class="exam-card">
+          <p class="exp-k">Section II · 90 minutes · 50% of your score</p>
+          <h3>4 free-response questions</h3>
+          <p class="exam-note">Each one is worth 10 points and counts the same: 12.5% of your score.</p>
+          <ol class="frq">
+            <li><b>Question 1: Asking and collecting</b><span>Write a good investigative question and plan how to collect the data (Practices 1 and 2).</span></li>
+            <li><b>Question 2: Analyzing and explaining</b><span>Make graphs or calculations, then say what they mean (Practices 3 and 4).</span></li>
+            <li><b>Question 3: Inference</b><span>A complete significance test or confidence interval, from State to Conclude.</span></li>
+            <li><b>Question 4: Putting it together</b><span>A multi-part question that mixes ideas from different units (Practices 2, 3 and 4).</span></li>
+          </ol>
+        </div>
+      </div>
+      <h3 class="exam-h">The four statistical practices</h3>
+      <p class="sec-sub">The skills every question checks, and about how much of the multiple-choice section uses each one.</p>
+      <ul class="pick practices" aria-label="The four statistical practices">
+        <li><b>1 · Formulate questions</b><span>Ask an investigative question that data can answer.</span><em>5–10%</em></li>
+        <li><b>2 · Collect data</b><span>Choose fair ways to collect data, and the right inference method, hypotheses and possible errors.</span><em>20–30%</em></li>
+        <li><b>3 · Analyze data</b><span>Make tables and graphs, and calculate statistics, probabilities and intervals.</span><em>25–35%</em></li>
+        <li><b>4 · Interpret results</b><span>Explain what results mean, check conditions, and back up claims in context.</span><em>25–35%</em></li>
+      </ul>
+      <p class="exam-src">Source: College Board's <a href="https://apcentral.collegeboard.org/media/pdf/ap-statistics-course-and-exam-description.pdf">AP Statistics Course and Exam Description</a>, effective Fall 2026. Exam details can change, so check AP Central for the latest version.</p>
     </div>
   </section>
 
@@ -342,7 +380,7 @@
       <div class="about-grid">
         <div class="block" id="how">
           <h3>How it's made</h3>
-          <p>The lessons, examples and practice questions were written with Claude, an AI model made by Anthropic, following the nine units of the AP Statistics course. The goal is plain words: if a 5th grader could follow the sentence, it stays.</p>
+          <p>The lessons, examples and practice questions were written with Claude, an AI model made by Anthropic, following the five units in College Board's <a href="https://apcentral.collegeboard.org/media/pdf/ap-statistics-course-and-exam-description.pdf">AP Statistics Course and Exam Description</a> (effective Fall 2026). The goal is plain words: if a 5th grader could follow the sentence, it stays.</p>
           <p>AI can make mistakes. Your textbook, your teacher and the official course description are the final word.</p>
         </div>
         <div class="block" id="tutor-info">

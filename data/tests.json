@@ -3,112 +3,156 @@
     "id": "one-prop",
     "short": "1-prop z",
     "name": "1-proportion z-test",
-    "unit": 6,
+    "unit": 3,
     "when": "One group, a yes-or-no question, and a claim about the percent.",
     "question": "A company says 75% of its customers are happy. You survey 120 random customers and 84 of them (70%) are happy. Is the true percent lower than 75%?",
     "steps": [
-      { "k": "State", "t": "H₀: p = 0.75 and Hₐ: p < 0.75, where p is the true proportion of all customers who are happy. Use α = 0.05." },
-      { "k": "Plan", "t": "1-proportion z-test. Random: random sample ✓. 10%: 120 is less than 10% of all customers ✓. Large counts: np₀ = 90 and n(1 − p₀) = 30 are both at least 10 ✓." },
-      { "k": "Do", "t": "p̂ = 84 ÷ 120 = 0.70. z = (p̂ − p₀) ÷ √(p₀(1 − p₀)/n) = (0.70 − 0.75) ÷ √(0.75 · 0.25 / 120) ≈ −1.26. p-value = P(Z ≤ −1.26) ≈ 0.10." },
-      { "k": "Conclude", "t": "0.10 is more than 0.05, so we fail to reject H₀. We don't have convincing evidence that fewer than 75% of all customers are happy." }
+      {
+        "k": "State",
+        "t": "H₀: p = 0.75 and Hₐ: p < 0.75, where p is the true proportion of all customers who are happy. Use α = 0.05."
+      },
+      {
+        "k": "Plan",
+        "t": "1-proportion z-test. Random: random sample ✓. 10%: 120 is less than 10% of all customers ✓. Large counts: np₀ = 90 and n(1 − p₀) = 30 are both at least 10 ✓."
+      },
+      {
+        "k": "Do",
+        "t": "p̂ = 84 ÷ 120 = 0.70. z = (p̂ − p₀) ÷ √(p₀(1 − p₀)/n) = (0.70 − 0.75) ÷ √(0.75 · 0.25 / 120) ≈ −1.26. p-value = P(Z ≤ −1.26) ≈ 0.10."
+      },
+      {
+        "k": "Conclude",
+        "t": "0.10 is more than 0.05, so we fail to reject H₀. We don't have convincing evidence that fewer than 75% of all customers are happy."
+      }
     ]
   },
   {
     "id": "two-prop",
     "short": "2-prop z",
     "name": "2-proportion z-test",
-    "unit": 6,
+    "unit": 3,
     "when": "Two groups, a yes-or-no question, and you want to compare their percents.",
     "question": "300 students are randomly split into two groups of 150. One group gets a homework reminder text. 60 of them (40%) turn homework in on time, against 45 of the other group (30%). Does the text help?",
     "steps": [
-      { "k": "State", "t": "H₀: p₁ − p₂ = 0 and Hₐ: p₁ − p₂ > 0, where p₁ and p₂ are the true on-time rates with and without the text. Use α = 0.05." },
-      { "k": "Plan", "t": "2-proportion z-test. Random: random assignment ✓ (the 10% check isn't needed for an experiment). Large counts: with the combined rate p̂c = 105 ÷ 300 = 0.35, the expected successes and failures (52.5 and 97.5 in each group) are all at least 10 ✓." },
-      { "k": "Do", "t": "z = (0.40 − 0.30) ÷ √(0.35 · 0.65 · (1/150 + 1/150)) ≈ 1.82. p-value = P(Z ≥ 1.82) ≈ 0.035." },
-      { "k": "Conclude", "t": "0.035 is less than 0.05, so we reject H₀. There is convincing evidence the reminder text raises the on-time rate. Because the groups were randomly assigned, we can say the text caused it." }
-    ]
-  },
-  {
-    "id": "one-t",
-    "short": "1-sample t",
-    "name": "1-sample t-test for a mean",
-    "unit": 7,
-    "when": "One group, a number you can average, and a claim about the mean.",
-    "question": "The box says batteries last 10 hours. A random sample of 25 batteries lasts x̄ = 9.6 hours on average, with s = 1.0 hour. Is the true mean less than 10?",
-    "steps": [
-      { "k": "State", "t": "H₀: μ = 10 and Hₐ: μ < 10, where μ is the true mean life of all these batteries. Use α = 0.05." },
-      { "k": "Plan", "t": "1-sample t-test. Random: random sample ✓. 10%: 25 is less than 10% of all batteries ✓. Normal: n = 25 is under 30, so check a graph of the sample: no strong skew or outliers ✓." },
-      { "k": "Do", "t": "t = (x̄ − μ₀) ÷ (s/√n) = (9.6 − 10) ÷ (1.0/5) = −2.0, with df = 24. p-value ≈ 0.028." },
-      { "k": "Conclude", "t": "0.028 is less than 0.05, so we reject H₀. There is convincing evidence the true mean battery life is less than 10 hours." }
-    ]
-  },
-  {
-    "id": "two-t",
-    "short": "2-sample t",
-    "name": "2-sample t-test for means",
-    "unit": 7,
-    "when": "Two separate groups, a number you can average, and you want to compare the means.",
-    "question": "70 students are randomly split: 35 study with music, 35 in silence. Music: x̄₁ = 78, s₁ = 10. Silence: x̄₂ = 83, s₂ = 9. Does music change the mean score?",
-    "steps": [
-      { "k": "State", "t": "H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ ≠ 0, where μ₁ and μ₂ are the true mean scores with music and in silence. Use α = 0.05." },
-      { "k": "Plan", "t": "2-sample t-test. Random: random assignment ✓. Normal: each group has 35 students, which is at least 30 ✓." },
-      { "k": "Do", "t": "t = (78 − 83) ÷ √(10²/35 + 9²/35) ≈ −2.20. The calculator gives df ≈ 67 and p-value ≈ 0.031." },
-      { "k": "Conclude", "t": "0.031 is less than 0.05, so we reject H₀. There is convincing evidence that music changes mean scores (here it lowered them). Random assignment lets us say music caused the difference." }
-    ]
-  },
-  {
-    "id": "paired",
-    "short": "Paired t",
-    "name": "Paired t-test",
-    "unit": 7,
-    "when": "Two numbers from each person (like before and after). Work with the differences.",
-    "question": "10 random students take a quiz, use a study app for a week, then retake it. The differences (after − before) have mean x̄d = 4.2 points and sd = 5.1. Do scores go up?",
-    "steps": [
-      { "k": "State", "t": "H₀: μd = 0 and Hₐ: μd > 0, where μd is the true mean difference (after − before). Use α = 0.05." },
-      { "k": "Plan", "t": "Paired t-test. Random: random sample of students ✓. 10%: 10 is less than 10% of all students ✓. Normal: n = 10 is small, so a dotplot of the 10 differences should show no strong skew or outliers ✓." },
-      { "k": "Do", "t": "t = 4.2 ÷ (5.1/√10) ≈ 2.60, with df = 9. p-value ≈ 0.014." },
-      { "k": "Conclude", "t": "0.014 is less than 0.05, so we reject H₀. There is convincing evidence that scores go up on average after the week. (There was no control group, so we can't be sure the app is what caused it.)" }
-    ]
-  },
-  {
-    "id": "gof",
-    "short": "χ² fit",
-    "name": "Chi-square goodness-of-fit test",
-    "unit": 8,
-    "when": "One category variable, and a claim about what percent should be in each category.",
-    "question": "A candy company says each of its 5 colors is 20% of the candies. A random sample of 100 has 30 red, 18 orange, 16 yellow, 20 green and 16 blue. Is the claim wrong?",
-    "steps": [
-      { "k": "State", "t": "H₀: the colors are 20% each, as claimed. Hₐ: the color distribution is different from the claim. Use α = 0.05." },
-      { "k": "Plan", "t": "χ² goodness-of-fit test. Random: random sample ✓. 10%: 100 is less than 10% of all the candies ✓. Expected counts: 100 × 0.20 = 20 for each color, all at least 5 ✓." },
-      { "k": "Do", "t": "χ² = (30−20)²/20 + (18−20)²/20 + (16−20)²/20 + (20−20)²/20 + (16−20)²/20 = 5 + 0.2 + 0.8 + 0 + 0.8 = 6.8, with df = 4. p-value ≈ 0.15." },
-      { "k": "Conclude", "t": "0.15 is more than 0.05, so we fail to reject H₀. We don't have convincing evidence the colors are different from 20% each. That much red can happen by luck." }
+      {
+        "k": "State",
+        "t": "H₀: p₁ − p₂ = 0 and Hₐ: p₁ − p₂ > 0, where p₁ and p₂ are the true on-time rates with and without the text. Use α = 0.05."
+      },
+      {
+        "k": "Plan",
+        "t": "2-proportion z-test. Random: random assignment ✓ (the 10% check isn't needed for an experiment). Large counts: with the combined rate p̂c = 105 ÷ 300 = 0.35, the expected successes and failures (52.5 and 97.5 in each group) are all at least 10 ✓."
+      },
+      {
+        "k": "Do",
+        "t": "z = (0.40 − 0.30) ÷ √(0.35 · 0.65 · (1/150 + 1/150)) ≈ 1.82. p-value = P(Z ≥ 1.82) ≈ 0.035."
+      },
+      {
+        "k": "Conclude",
+        "t": "0.035 is less than 0.05, so we reject H₀. There is convincing evidence the reminder text raises the on-time rate. Because the groups were randomly assigned, we can say the text caused it."
+      }
     ]
   },
   {
     "id": "indep",
     "short": "χ² two-way",
     "name": "Chi-square test for independence or homogeneity",
-    "unit": 8,
+    "unit": 3,
     "when": "Two category variables in a two-way table. Independence: one sample, two variables. Homogeneity: several groups, one variable.",
     "question": "A random sample of 300 students at a school records grade (9 to 12) and how they get to school (walk, bus or car). Are the two linked?",
     "steps": [
-      { "k": "State", "t": "H₀: grade and way of getting to school are independent for students at this school. Hₐ: they are not independent. Use α = 0.05." },
-      { "k": "Plan", "t": "χ² test for independence. Random: random sample ✓. 10%: the school has more than 3,000 students, so 300 is less than 10% ✓. Expected counts: (row total × column total) ÷ 300 for each cell, all at least 5 ✓." },
-      { "k": "Do", "t": "χ² = Σ (O − E)² ÷ E over all 12 cells, with df = (4 − 1)(3 − 1) = 6. Say the calculator gives χ² = 21.4 and p-value ≈ 0.002." },
-      { "k": "Conclude", "t": "0.002 is less than 0.05, so we reject H₀. There is convincing evidence that grade and the way students get to school are linked for students at this school." }
+      {
+        "k": "State",
+        "t": "H₀: grade and way of getting to school are independent for students at this school. Hₐ: they are not independent. Use α = 0.05."
+      },
+      {
+        "k": "Plan",
+        "t": "χ² test for independence. Random: random sample ✓. 10%: the school has more than 3,000 students, so 300 is less than 10% ✓. Expected counts: (row total × column total) ÷ 300 for each cell, all at least 5 ✓."
+      },
+      {
+        "k": "Do",
+        "t": "χ² = Σ (O − E)² ÷ E over all 12 cells, with df = (4 − 1)(3 − 1) = 6. Say the calculator gives χ² = 21.4 and p-value ≈ 0.002."
+      },
+      {
+        "k": "Conclude",
+        "t": "0.002 is less than 0.05, so we reject H₀. There is convincing evidence that grade and the way students get to school are linked for students at this school."
+      }
     ]
   },
   {
-    "id": "slope",
-    "short": "Slope t",
-    "name": "t-test for the slope",
-    "unit": 9,
-    "when": "Two number variables with a straight-line pattern, and you want to know if the true slope isn't zero.",
-    "question": "A random sample of 20 kids gives a regression line for sleep (hours) from screen time (hours) with slope b = −0.40 and SE_b = 0.15. Is there a real negative link?",
+    "id": "one-t",
+    "short": "1-sample t",
+    "name": "1-sample t-test for a mean",
+    "unit": 4,
+    "when": "One group, a number you can average, and a claim about the mean.",
+    "question": "The box says batteries last 10 hours. A random sample of 25 batteries lasts x̄ = 9.6 hours on average, with s = 1.0 hour. Is the true mean less than 10?",
     "steps": [
-      { "k": "State", "t": "H₀: β = 0 and Hₐ: β < 0, where β is the true slope for sleep against screen time for all kids like these. Use α = 0.05." },
-      { "k": "Plan", "t": "t-test for slope. LINER: the scatterplot looks Linear; Independent (20 is under 10% of all kids); residuals look Normal; residual plot shows Equal spread; Random sample ✓." },
-      { "k": "Do", "t": "t = b ÷ SE_b = −0.40 ÷ 0.15 ≈ −2.67, with df = n − 2 = 18. p-value ≈ 0.008." },
-      { "k": "Conclude", "t": "0.008 is less than 0.05, so we reject H₀. There is convincing evidence of a negative straight-line relationship between screen time and sleep for kids like these." }
+      {
+        "k": "State",
+        "t": "H₀: μ = 10 and Hₐ: μ < 10, where μ is the true mean life of all these batteries. Use α = 0.05."
+      },
+      {
+        "k": "Plan",
+        "t": "1-sample t-test. Random: random sample ✓. 10%: 25 is less than 10% of all batteries ✓. Normal: n = 25 is under 30, so check a graph of the sample: no strong skew or outliers ✓."
+      },
+      {
+        "k": "Do",
+        "t": "t = (x̄ − μ₀) ÷ (s/√n) = (9.6 − 10) ÷ (1.0/5) = −2.0, with df = 24. p-value ≈ 0.028."
+      },
+      {
+        "k": "Conclude",
+        "t": "0.028 is less than 0.05, so we reject H₀. There is convincing evidence the true mean battery life is less than 10 hours."
+      }
+    ]
+  },
+  {
+    "id": "paired",
+    "short": "Paired t",
+    "name": "Paired t-test (mean difference)",
+    "unit": 4,
+    "when": "Two numbers from each person (like before and after). Subtract to get the differences, then test their mean.",
+    "question": "10 random students take a quiz, use a study app for a week, then retake it. The differences (after − before) have mean x̄d = 4.2 points and sd = 5.1. Do scores go up?",
+    "steps": [
+      {
+        "k": "State",
+        "t": "H₀: μd = 0 and Hₐ: μd > 0, where μd is the true mean difference (after − before). Use α = 0.05."
+      },
+      {
+        "k": "Plan",
+        "t": "Paired t-test. Random: random sample of students ✓. 10%: 10 is less than 10% of all students ✓. Normal: n = 10 is small, so a dotplot of the 10 differences should show no strong skew or outliers ✓."
+      },
+      {
+        "k": "Do",
+        "t": "t = 4.2 ÷ (5.1/√10) ≈ 2.60, with df = 9. p-value ≈ 0.014."
+      },
+      {
+        "k": "Conclude",
+        "t": "0.014 is less than 0.05, so we reject H₀. There is convincing evidence that scores go up on average after the week. (There was no control group, so we can't be sure the app is what caused it.)"
+      }
+    ]
+  },
+  {
+    "id": "two-t",
+    "short": "2-sample t",
+    "name": "2-sample t-test for means",
+    "unit": 4,
+    "when": "Two separate groups, a number you can average, and you want to compare the means.",
+    "question": "70 students are randomly split: 35 study with music, 35 in silence. Music: x̄₁ = 78, s₁ = 10. Silence: x̄₂ = 83, s₂ = 9. Does music change the mean score?",
+    "steps": [
+      {
+        "k": "State",
+        "t": "H₀: μ₁ − μ₂ = 0 and Hₐ: μ₁ − μ₂ ≠ 0, where μ₁ and μ₂ are the true mean scores with music and in silence. Use α = 0.05."
+      },
+      {
+        "k": "Plan",
+        "t": "2-sample t-test. Random: random assignment ✓. Normal: each group has 35 students, which is at least 30 ✓."
+      },
+      {
+        "k": "Do",
+        "t": "t = (78 − 83) ÷ √(10²/35 + 9²/35) ≈ −2.20. The calculator gives df ≈ 67 and p-value ≈ 0.031."
+      },
+      {
+        "k": "Conclude",
+        "t": "0.031 is less than 0.05, so we reject H₀. There is convincing evidence that music changes mean scores (here it lowered them). Random assignment lets us say music caused the difference."
+      }
     ]
   }
 ]
