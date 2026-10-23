@@ -1,0 +1,14 @@
+{
+  "name": "ap-stats-made-simple",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sdk": "node scripts/build-sdk.mjs",
+    "validate": "node scripts/validate.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "0.132.1",
+    "esbuild": "0.28.2"
+  }
+}

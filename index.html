@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AP Stats, Made Simple</title>
+<meta name="description" content="A free AP Statistics study guide written in plain, 5th-grade-level words: all nine units, interactive visual labs, step-by-step test walkthroughs, practice questions and an AI tutor you can ask anything.">
+<meta property="og:title" content="AP Stats, Made Simple">
+<meta property="og:description" content="AP Statistics in plain words, with interactive labs, practice questions and an AI tutor.">
+<meta name="theme-color" content="#08090D">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M2.5 19.5h19"/><path d="M3 19c3.2 0 4.6-1.6 6-6.2C10.3 8.4 11 6 12 6s1.7 2.4 3 6.8c1.4 4.6 2.8 6.2 6 6.2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12.5a7.5 7.5 0 0 1-11.2 6.5L4 20l1.1-4.4A7.5 7.5 0 1 1 20 12.5Z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 8-8M16 7l2 2M14 9l2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5 13.8 10l6.7 2-6.7 2L12 20.5 10.2 14l-6.7-2 6.7-2L12 3.5Z"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4 21 19.5H3L12 4Z"/><path d="M12 10v4.5M12 17.2v.1"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to the lessons</a>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#top" aria-label="AP Stats, Made Simple, back to top">
+      <svg class="ico brand-ico" aria-hidden="true"><use href="#i-bell"/></svg>
+      <span>AP Stats, Made Simple</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Sections">
+      <a href="#units">Units</a>
+      <a href="#lab">Lab</a>
+      <a href="#tests">Tests</a>
+      <a href="#ask">Ask the tutor</a>
+      <a href="#practice">Practice</a>
+      <a href="#key-terms">Key terms</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="bar-actions">
+      <button class="icon-btn" type="button" id="open-search" aria-label="Search topics">
+        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" type="button" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <div class="wrap hero-copy">
+      <p class="edition"><span class="pulse" aria-hidden="true"></span><span>Free study guide · all 9 units · plain words a 5th grader would get</span></p>
+      <h1 id="hero-h">AP Stats, made simple</h1>
+      <p class="deck">Every big idea in AP Statistics, explained like a friend would explain it. Play with the ideas in the lab, practice for the exam, and ask the AI tutor anything.</p>
+      <div class="hero-find">
+        <form class="search search-hero" id="hero-search" role="search" aria-label="Search topics">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="sr" for="hero-q">Search a topic</label>
+          <input id="hero-q" type="search" list="topics" autocomplete="off" placeholder="Search a topic, like p-value or z-score">
+          <button class="btn" type="submit">Search</button>
+        </form>
+        <p class="hint" id="hint">Try <button type="button" data-try="p-value">p-value</button>, <button type="button" data-try="standard deviation">standard deviation</button> or <button type="button" data-try="regression">regression</button></p>
+      </div>
+      <noscript><p class="stale">This site needs JavaScript for the lab, practice questions and tutor. The lessons are also in <a href="data/units.json">the units data file</a>.</p></noscript>
+    </div>
+    <figure class="board" id="board">
+      <div class="board-stage" id="board-stage">
+        <canvas id="board-canvas" aria-hidden="true"></canvas>
+        <div class="board-pins" id="board-pins" aria-hidden="true"></div>
+      </div>
+      <figcaption class="wrap board-cap" id="board-cap">A Galton board, running right now. Each ball bounces left or right at random, and together they build a bell curve.</figcaption>
+    </figure>
+    <div class="wrap">
+      <dl class="stats" id="stats" aria-label="This guide in numbers"></dl>
+    </div>
+  </section>
+
+  <section class="units" id="units" aria-labelledby="units-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="units-h">The nine units</h2>
+        <p class="sec-sub">Everything on the AP exam, one unit at a time. Each one says how much of the exam it covers. Open a unit for the big ideas, an everyday example and the mistake to watch for.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="search search-bar" role="search">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="sr" for="q">Search the units</label>
+          <input id="q" type="search" list="topics" autocomplete="off" placeholder="Search a word, like outlier or slope">
+          <button class="icon-btn clear-q" type="button" id="clear-q" aria-label="Clear search" hidden>
+            <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+          </button>
+        </div>
+        <datalist id="topics"></datalist>
+        <div class="chips" id="f-group" role="group" aria-label="Filter by big idea"></div>
+      </div>
+
+      <div class="status" id="status" aria-live="polite"></div>
+      <ol class="unit-list" id="unit-list"></ol>
+    </div>
+  </section>
+
+  <section class="lab" id="lab" aria-labelledby="lab-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="lab-h">The stats lab</h2>
+        <p class="sec-sub">Ideas stick better when you can poke them. Drag, click and press the buttons to watch statistics happen.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Lab experiments" id="lab-tabs">
+        <button class="tab" role="tab" id="t-bell" aria-controls="p-bell" aria-selected="true">Bell curve</button>
+        <button class="tab" role="tab" id="t-clt" aria-controls="p-clt" aria-selected="false" tabindex="-1">Sample means</button>
+        <button class="tab" role="tab" id="t-ci" aria-controls="p-ci" aria-selected="false" tabindex="-1">Confidence intervals</button>
+        <button class="tab" role="tab" id="t-line" aria-controls="p-line" aria-selected="false" tabindex="-1">Line of best fit</button>
+      </div>
+
+      <div class="exp" role="tabpanel" id="p-bell" aria-labelledby="t-bell">
+        <div class="exp-text">
+          <p class="exp-k">Unit 1 · z-scores</p>
+          <h3>How much of the curve is shaded?</h3>
+          <p class="exp-intro">A z-score says how many standard deviations (steps) you are from the middle. Slide it and watch the shaded part. The shaded area is the percent of values in that part.</p>
+          <div class="chips" role="group" aria-label="Which part to shade" id="bell-mode">
+            <button class="chip" type="button" data-mode="left" aria-pressed="true">Left of z</button>
+            <button class="chip" type="button" data-mode="between" aria-pressed="false">Between −z and z</button>
+            <button class="chip" type="button" data-mode="right" aria-pressed="false">Right of z</button>
+          </div>
+          <label class="range">
+            <span class="range-top"><span>z-score</span><output id="bell-z-out" class="num">1.00</output></span>
+            <input type="range" id="bell-z" min="-3" max="3" step="0.01" value="1">
+          </label>
+          <p class="readout" id="bell-read" aria-live="polite"></p>
+        </div>
+        <div class="exp-fig"><svg id="bell-svg" viewBox="0 0 640 360" role="img" aria-labelledby="bell-desc"><desc id="bell-desc">A normal curve with the chosen area shaded.</desc></svg></div>
+      </div>
+
+      <div class="exp" role="tabpanel" id="p-clt" aria-labelledby="t-clt" hidden>
+        <div class="exp-text">
+          <p class="exp-k">Unit 5 · central limit theorem</p>
+          <h3>Grab samples, graph their means</h3>
+          <p class="exp-intro">The top picture is the whole population. Each sample grabs n values and finds their mean. The bottom graph collects those means. Watch it turn into a bell, even when the top isn't one.</p>
+          <div class="chips" role="group" aria-label="Population shape" id="clt-pop">
+            <button class="chip" type="button" data-pop="skew" aria-pressed="true">Wait times (skewed)</button>
+            <button class="chip" type="button" data-pop="flat" aria-pressed="false">Flat (all equal)</button>
+            <button class="chip" type="button" data-pop="two" aria-pressed="false">Two humps</button>
+          </div>
+          <label class="range">
+            <span class="range-top"><span>Sample size n</span><output id="clt-n-out" class="num">5</output></span>
+            <input type="range" id="clt-n" min="1" max="50" step="1" value="5">
+          </label>
+          <div class="btn-row">
+            <button class="btn" type="button" id="clt-1">Take 1 sample</button>
+            <button class="btn btn-ghost" type="button" id="clt-100">Take 100</button>
+            <button class="icon-btn" type="button" id="clt-reset" aria-label="Start over"><svg class="ico" aria-hidden="true"><use href="#i-redo"/></svg></button>
+          </div>
+          <p class="readout" id="clt-read" aria-live="polite"></p>
+        </div>
+        <div class="exp-fig"><svg id="clt-svg" viewBox="0 0 640 400" role="img" aria-labelledby="clt-desc"><desc id="clt-desc">The population on top and a histogram of sample means below.</desc></svg></div>
+      </div>
+
+      <div class="exp" role="tabpanel" id="p-ci" aria-labelledby="t-ci" hidden>
+        <div class="exp-text">
+          <p class="exp-k">Unit 6 · confidence intervals</p>
+          <h3>How often does the net catch the fish?</h3>
+          <p class="exp-intro">Pretend we know the truth: 60% of all students like pizza best. Each line is one sample's confidence interval. Purple lines catch the true 60%. Orange lines miss it. About 95% of 95% intervals should catch it.</p>
+          <div class="chips" role="group" aria-label="Confidence level" id="ci-level">
+            <button class="chip" type="button" data-level="0.80" aria-pressed="false">80%</button>
+            <button class="chip" type="button" data-level="0.90" aria-pressed="false">90%</button>
+            <button class="chip" type="button" data-level="0.95" aria-pressed="true">95%</button>
+            <button class="chip" type="button" data-level="0.99" aria-pressed="false">99%</button>
+          </div>
+          <label class="range">
+            <span class="range-top"><span>Students per sample</span><output id="ci-n-out" class="num">50</output></span>
+            <input type="range" id="ci-n" min="20" max="400" step="10" value="50">
+          </label>
+          <div class="btn-row">
+            <button class="btn" type="button" id="ci-go">Make 25 intervals</button>
+            <button class="icon-btn" type="button" id="ci-reset" aria-label="Start over"><svg class="ico" aria-hidden="true"><use href="#i-redo"/></svg></button>
+          </div>
+          <p class="readout" id="ci-read" aria-live="polite"></p>
+        </div>
+        <div class="exp-fig"><svg id="ci-svg" viewBox="0 0 640 400" role="img" aria-labelledby="ci-desc"><desc id="ci-desc">Confidence intervals drawn as horizontal lines around the true value of 60 percent.</desc></svg></div>
+      </div>
+
+      <div class="exp" role="tabpanel" id="p-line" aria-labelledby="t-line" hidden>
+        <div class="exp-text">
+          <p class="exp-k">Unit 2 · regression</p>
+          <h3>Click to add dots, watch the line</h3>
+          <p class="exp-intro">Click or tap the graph to add points. The line of best fit and the correlation r update each time. Try adding one far-away point and see how much it pulls the line.</p>
+          <label class="switch">
+            <input type="checkbox" id="line-res">
+            <span class="switch-track" aria-hidden="true"></span>
+            <span>Show residuals</span>
+          </label>
+          <div class="btn-row">
+            <button class="btn" type="button" id="line-rand">Random dots</button>
+            <button class="btn btn-ghost" type="button" id="line-undo">Undo</button>
+            <button class="icon-btn" type="button" id="line-clear" aria-label="Clear all dots"><svg class="ico" aria-hidden="true"><use href="#i-redo"/></svg></button>
+          </div>
+          <p class="readout" id="line-read" aria-live="polite"></p>
+        </div>
+        <div class="exp-fig"><svg id="line-svg" class="clickable" viewBox="0 0 640 400" role="img" aria-labelledby="line-desc"><desc id="line-desc">A scatterplot. Click to add points; the least-squares line is drawn through them.</desc></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tests" id="tests" aria-labelledby="tests-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="tests-h">Which test do I use?</h2>
+        <p class="sec-sub">Every inference question on the exam uses the same four steps: State, Plan, Do, Conclude. First ask what kind of data you have.</p>
+      </div>
+      <ul class="pick" aria-label="How to pick a test">
+        <li><b>Yes/no answers?</b><span>Percents: use a z-test for proportions.</span></li>
+        <li><b>Numbers you can average?</b><span>Means: use a t-test.</span></li>
+        <li><b>Counts in many categories?</b><span>Use a chi-square test.</span></li>
+        <li><b>A line through dots?</b><span>Use a t-test for the slope.</span></li>
+      </ul>
+      <div class="tabs" role="tablist" aria-label="Inference tests" id="test-tabs"></div>
+      <div id="test-panels"></div>
+    </div>
+  </section>
+
+  <section class="ask" id="ask" aria-labelledby="ask-h">
+    <div class="wrap ask-grid">
+      <div class="ask-side">
+        <div class="sec-head">
+          <h2 id="ask-h">Ask Stat Buddy</h2>
+          <p class="sec-sub">An AI tutor that explains AP Statistics in simple words. Ask about a lesson, paste a homework question, or say "explain it again, simpler."</p>
+        </div>
+        <ul class="ask-points">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-spark"/></svg><span><b>Powered by Claude</b>, an AI model made by Anthropic, when you connect a Claude API key. The key stays in your browser.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg><span><b>No key?</b> Stat Buddy still answers from this guide's key terms and lessons.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-warn"/></svg><span><b>AI can make mistakes.</b> Check answers with your notes or teacher, especially numbers.</span></li>
+        </ul>
+      </div>
+
+      <div class="chat" id="chat">
+        <div class="chat-head">
+          <div class="chat-who">
+            <span class="avatar" aria-hidden="true"><svg class="ico"><use href="#i-bell"/></svg></span>
+            <div>
+              <p class="chat-name">Stat Buddy</p>
+              <p class="chat-mode" id="chat-mode">Study-guide mode · connect Claude for full answers</p>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="chat-new">New chat</button>
+        </div>
+        <div class="chips chat-level" role="group" aria-label="How to explain">
+          <button class="chip" type="button" data-level="simple" aria-pressed="true">Super simple</button>
+          <button class="chip" type="button" data-level="exam" aria-pressed="false">Simple + AP exam words</button>
+        </div>
+        <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-label="Conversation with Stat Buddy"></div>
+        <div class="chat-suggest chips" id="chat-suggest" aria-label="Suggested questions"></div>
+        <form class="chat-form" id="chat-form">
+          <label class="sr" for="chat-in">Ask a statistics question</label>
+          <textarea id="chat-in" rows="1" placeholder="Ask anything about AP Stats…" autocomplete="off"></textarea>
+          <button class="send" type="submit" id="chat-send" aria-label="Send">
+            <svg class="ico" aria-hidden="true"><use href="#i-send"/></svg>
+          </button>
+        </form>
+        <details class="keybox" id="keybox">
+          <summary><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span id="key-sum">Connect Claude for full AI answers</span><svg class="ico chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <div class="keybox-body">
+            <p>Paste a Claude API key from the <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">Claude Console</a>. Ask a parent or teacher if you don't have one. Your key is only sent to Anthropic, straight from this browser, and each question costs a few cents on that account.</p>
+            <form class="key-form" id="key-form">
+              <label class="sr" for="key-in">Claude API key</label>
+              <input id="key-in" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…">
+              <button class="btn btn-sm" type="submit">Connect</button>
+            </form>
+            <label class="check"><input type="checkbox" id="key-keep"> Remember the key on this device</label>
+            <p class="key-status" id="key-status" aria-live="polite"></p>
+            <p><button class="link-btn" type="button" id="key-forget" hidden>Disconnect and forget the key</button></p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="practice" id="practice" aria-labelledby="practice-h">
+    <div class="wrap">
+      <div class="sec-head sec-head-row">
+        <div>
+          <h2 id="practice-h">Quick check</h2>
+          <p class="sec-sub">Exam-style questions with the reason behind every answer. Pick a unit or do them all.</p>
+        </div>
+        <p class="score" id="score" aria-live="polite"></p>
+      </div>
+      <div class="chips quiz-units" id="f-quiz" role="group" aria-label="Filter questions by unit"></div>
+      <ol class="quiz" id="quiz"></ol>
+    </div>
+  </section>
+
+  <section class="formulas" id="formulas" aria-labelledby="formulas-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="formulas-h">Cheat sheet</h2>
+        <p class="sec-sub">The formulas you'll use most, each with what it means in plain words. You get a formula sheet on the exam, so focus on knowing when to use each one.</p>
+      </div>
+      <ul class="formula-list" id="formula-list"></ul>
+    </div>
+  </section>
+
+  <section class="terms" id="key-terms" aria-labelledby="terms-h">
+    <div class="wrap">
+      <div class="sec-head sec-head-row">
+        <div>
+          <h2 id="terms-h">Key terms</h2>
+          <p class="sec-sub">Stats words in plain English. Underlined words in the lessons open these too.</p>
+        </div>
+        <div class="search search-sm">
+          <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+          <label class="sr" for="term-q">Find a key term</label>
+          <input id="term-q" type="search" autocomplete="off" placeholder="Find a term">
+        </div>
+      </div>
+      <dl class="term-grid" id="terms"></dl>
+      <p class="empty" id="terms-empty" hidden>No key terms match that word yet. Try asking Stat Buddy.</p>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="about-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="about-h">About, privacy and terms</h2>
+        <p class="sec-sub">AP Stats, Made Simple has no accounts, ads or analytics. This is how it works and what it does with your information.</p>
+      </div>
+      <div class="about-grid">
+        <div class="block" id="how">
+          <h3>How it's made</h3>
+          <p>The lessons, examples and practice questions were written with Claude, an AI model made by Anthropic, following the nine units of the AP Statistics course. The goal is plain words: if a 5th grader could follow the sentence, it stays.</p>
+          <p>AI can make mistakes. Your textbook, your teacher and the official course description are the final word.</p>
+        </div>
+        <div class="block" id="tutor-info">
+          <h3>The AI tutor</h3>
+          <p>Without a key, Stat Buddy answers from this guide's key terms and lessons, right in your browser. With a Claude API key, your questions and the chat so far are sent from your browser straight to Anthropic's API, which answers using Claude. Nothing goes through any other server.</p>
+          <p>Anthropic handles those messages under its own <a href="https://www.anthropic.com/legal/privacy">privacy policy</a>. Don't type private things like your full name, address or passwords into the chat.</p>
+        </div>
+        <div class="block" id="privacy">
+          <h3>Privacy</h3>
+          <ul>
+            <li>The site collects no personal information. There are no accounts, trackers or analytics.</li>
+            <li>It saves your practice answers and score in your own browser so they're still there next time. They never leave your device.</li>
+            <li>Your API key is kept only for this visit, unless you tick "Remember the key on this device."</li>
+            <li>The site is hosted on GitHub Pages. Like any web host, GitHub may log visitors' IP addresses for security; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
+          </ul>
+        </div>
+        <div class="block" id="your-data">
+          <h3>Your data</h3>
+          <p>Everything this site saved is in your browser, so you can remove it yourself. This button clears your practice answers, your saved key and your settings.</p>
+          <p><button class="btn btn-ghost" type="button" id="clear">Clear what this site saved</button></p>
+          <p class="cleared" id="cleared" aria-live="polite"></p>
+        </div>
+        <div class="block" id="terms-of-use">
+          <h3>Terms of use</h3>
+          <ul>
+            <li>The guide is free and sells nothing. If you connect an API key, any charges are between you and Anthropic.</li>
+            <li>AP® is a trademark registered by the College Board, which is not affiliated with, and does not endorse, this site.</li>
+            <li>Lessons and AI answers can contain mistakes. Use them to learn, and check anything important with your teacher.</li>
+          </ul>
+        </div>
+        <div class="block" id="accessibility">
+          <h3>Accessibility</h3>
+          <p>Everything works with a keyboard. Tab moves between controls, Enter or Space presses buttons and opens units, arrow keys move between tabs, and Escape closes a key-term card or the menu. In the chat, Enter sends and Shift + Enter starts a new line. Motion switches off if your device asks for reduced motion.</p>
+        </div>
+        <div class="block block-wide" id="credits">
+          <h3>Credits and licences</h3>
+          <p>Typefaces: Newsreader and Hanken Grotesk, used under the SIL Open Font License 1.1 (<a href="assets/fonts/OFL-newsreader.txt">Newsreader licence</a>, <a href="assets/fonts/OFL-hanken-grotesk.txt">Hanken Grotesk licence</a>). The tutor uses the official Anthropic TypeScript SDK (MIT licence), bundled with the site. Design shared with <a href="https://muthu-m1.github.io/world-right-now/">World Right Now</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="foot-name">AP Stats, Made Simple</p>
+    <nav class="foot-nav" aria-label="About, privacy and terms">
+      <a href="#how">How it's made</a>
+      <a href="#tutor-info">The AI tutor</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#your-data">Your data</a>
+      <a href="#terms-of-use">Terms of use</a>
+      <a href="#accessibility">Accessibility</a>
+      <a href="#credits">Credits</a>
+    </nav>
+    <p class="foot-stamp">A free study guide. Not affiliated with the College Board.</p>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="#ask" hidden>
+  <svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>
+  <span>Ask Stat Buddy</span>
+</a>
+
+<div class="term-pop" id="term-pop" role="dialog" aria-modal="false" aria-labelledby="term-pop-title" hidden>
+  <p class="term-pop-k"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>Key term</p>
+  <strong id="term-pop-title"></strong>
+  <p id="term-pop-def"></p>
+  <div class="term-pop-links">
+    <a id="term-pop-link" href="#key-terms">See all key terms</a>
+    <button class="link-btn" type="button" id="term-pop-ask">Ask Stat Buddy</button>
+  </div>
+</div>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
