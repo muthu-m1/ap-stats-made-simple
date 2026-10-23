@@ -243,8 +243,8 @@
           <p class="sec-sub">An AI tutor that explains AP Statistics in simple words. Ask about a lesson, paste a homework question, or say "explain it again, simpler."</p>
         </div>
         <ul class="ask-points">
-          <li><svg class="ico" aria-hidden="true"><use href="#i-spark"/></svg><span><b>Powered by Claude</b>, an AI model made by Anthropic, when you connect a Claude API key. The key stays in your browser.</span></li>
-          <li><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg><span><b>No key?</b> Stat Buddy still answers from this guide's key terms and lessons.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-spark"/></svg><span><b>Free to use.</b> Just ask: no account or API key needed. Answers come from Qwen, a free open AI model, running on Cloudflare.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg><span><b>A few hundred answers a day.</b> If lots of students are asking, wait a minute. If today's free answers run out, Stat Buddy looks things up in the study guide until tomorrow.</span></li>
           <li><svg class="ico" aria-hidden="true"><use href="#i-warn"/></svg><span><b>AI can make mistakes.</b> Check answers with your notes or teacher, especially numbers.</span></li>
         </ul>
       </div>
@@ -276,7 +276,7 @@
         <details class="keybox" id="keybox">
           <summary><svg class="ico" aria-hidden="true"><use href="#i-key"/></svg><span id="key-sum">Connect Claude for full AI answers</span><svg class="ico chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
           <div class="keybox-body">
-            <p>Paste a Claude API key from the <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">Claude Console</a>. Ask a parent or teacher if you don't have one. Your key is only sent to Anthropic, straight from this browser, and each question costs a few cents on that account.</p>
+            <p>You don't need this: Stat Buddy is free without a key. If you have your own key from the <a href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener">Claude Console</a>, you can get answers from Claude, made by Anthropic, instead. Your key is only sent to Anthropic, straight from this browser, and each question costs a few cents on that account.</p>
             <form class="key-form" id="key-form">
               <label class="sr" for="key-in">Claude API key</label>
               <input id="key-in" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…">
@@ -347,15 +347,15 @@
         </div>
         <div class="block" id="tutor-info">
           <h3>The AI tutor</h3>
-          <p>Without a key, Stat Buddy answers from this guide's key terms and lessons, right in your browser. With a Claude API key, your questions and the chat so far are sent from your browser straight to Anthropic's API, which answers using Claude. Nothing goes through any other server.</p>
-          <p>Anthropic handles those messages under its own <a href="https://www.anthropic.com/legal/privacy">privacy policy</a>. Don't type private things like your full name, address or passwords into the chat.</p>
+          <p>When you ask Stat Buddy something, your question and the chat so far go to this site's small tutor server (a Cloudflare Worker). It asks Qwen3, a free open AI model, running on Cloudflare Workers AI, and sends the answer back. The tutor server doesn't save your questions. Each page visit gets a random number so the server can share questions fairly between students; it isn't stored and doesn't identify you. If you use your own Claude API key instead, your browser talks to Anthropic directly.</p>
+          <p>Cloudflare handles those messages under its own <a href="https://www.cloudflare.com/privacypolicy/">privacy policy</a>, and Anthropic does under <a href="https://www.anthropic.com/legal/privacy">its policy</a> if you use your own key. Don't type private things like your full name, address or passwords into the chat.</p>
         </div>
         <div class="block" id="privacy">
           <h3>Privacy</h3>
           <ul>
             <li>The site collects no personal information. There are no accounts, trackers or analytics.</li>
             <li>It saves your practice answers and score in your own browser so they're still there next time. They never leave your device.</li>
-            <li>Your API key is kept only for this visit, unless you tick "Remember the key on this device."</li>
+            <li>If you add your own API key, it's kept only for this visit, unless you tick "Remember the key on this device."</li>
             <li>The site is hosted on GitHub Pages. Like any web host, GitHub may log visitors' IP addresses for security; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
           </ul>
         </div>
@@ -379,7 +379,7 @@
         </div>
         <div class="block block-wide" id="credits">
           <h3>Credits and licences</h3>
-          <p>Typefaces: Newsreader and Hanken Grotesk, used under the SIL Open Font License 1.1 (<a href="assets/fonts/OFL-newsreader.txt">Newsreader licence</a>, <a href="assets/fonts/OFL-hanken-grotesk.txt">Hanken Grotesk licence</a>). The tutor uses the official Anthropic TypeScript SDK (MIT licence), bundled with the site. Design shared with <a href="https://muthu-m1.github.io/world-right-now/">World Right Now</a>.</p>
+          <p>Typefaces: Newsreader and Hanken Grotesk, used under the SIL Open Font License 1.1 (<a href="assets/fonts/OFL-newsreader.txt">Newsreader licence</a>, <a href="assets/fonts/OFL-hanken-grotesk.txt">Hanken Grotesk licence</a>). The free tutor uses Qwen3 (Apache 2.0 licence) on Cloudflare Workers AI. With your own key, the tutor uses the official Anthropic TypeScript SDK (MIT licence), bundled with the site. Design shared with <a href="https://muthu-m1.github.io/world-right-now/">World Right Now</a>.</p>
         </div>
       </div>
     </div>

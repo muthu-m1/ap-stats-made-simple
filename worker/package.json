@@ -7,9 +7,6 @@
     "deploy": "wrangler deploy",
     "test": "node test/run.mjs"
   },
-  "dependencies": {
-    "@anthropic-ai/sdk": "0.132.1"
-  },
   "devDependencies": {
     "wrangler": "4.149.0"
   }

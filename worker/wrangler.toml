@@ -1,8 +1,11 @@
-# The shared tutor Worker. Deploy with `npx wrangler deploy`; set the Claude API key once with
-# `npx wrangler secret put ANTHROPIC_API_KEY` (it is stored by Cloudflare, never in this repository).
+# The shared tutor Worker. Deploy with `npx wrangler deploy`. It answers with Workers AI, using the free
+# daily allowance of the Cloudflare account it's deployed to; on the Workers Free plan it can't run up a bill.
 name = "ap-stats-tutor"
 main = "src/index.js"
 compatibility_date = "2026-10-01"
+
+[ai]
+binding = "AI"
 
 [vars]
 # Only pages from these sites may use the tutor.

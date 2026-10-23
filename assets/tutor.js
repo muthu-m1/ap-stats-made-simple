@@ -1,6 +1,7 @@
-// Stat Buddy, the AI tutor. It calls Claude through the official Anthropic SDK (bundled in assets/vendor):
-// through the site's shared tutor Worker when SHARED_TUTOR_URL is set, or straight from the browser with
-// the visitor's own API key. With neither, it answers from this guide's key terms and lessons.
+// Stat Buddy, the AI tutor. With the visitor's own Claude API key it calls Claude straight from the browser,
+// through the official Anthropic SDK (bundled in assets/vendor). Otherwise it asks the site's free shared
+// tutor Worker (worker/) when SHARED_TUTOR_URL is set. With neither, it answers from this guide's key terms
+// and lessons.
 import { $, esc, store, setPressed } from "./util.js";
 import { MODEL, LEVEL_NOTES, buildRequest } from "./tutor-prompt.js";
 import { SHARED_TUTOR_URL } from "./config.js";
@@ -59,7 +60,7 @@ export function startTutor({ terms, units }) {
   let history = [];         // messages exactly as sent to the API, append-only
   let level = "simple";     // what the student picked
   let appliedLevel = "simple"; // what the conversation has been told so far
-  let stream = null;
+  let stop = null;          // cancels the answer in progress
   let busy = false;
   let sdk = null;
   let toldAboutKey = false;
@@ -130,7 +131,7 @@ export function startTutor({ terms, units }) {
   function showKeyState(note, tone) {
     const on = Boolean(key);
     keybox.classList.toggle("on", on);
-    $("#chat-mode").textContent = on ? "AI tutor · powered by Claude, with your key" : shared ? "AI tutor · powered by Claude" : "Study-guide mode · connect Claude for full answers";
+    $("#chat-mode").textContent = on ? "AI tutor · Claude, with your key" : shared ? "Free AI tutor · ask anything" : "Study-guide mode · connect Claude for full answers";
     $("#chat-mode").classList.toggle("on", on || shared);
     $("#key-sum").textContent = on ? "Using your own Claude API key" : shared ? "Optional: use your own Claude API key" : "Connect Claude for full AI answers";
     $("#key-forget").hidden = !on;
@@ -169,9 +170,20 @@ export function startTutor({ terms, units }) {
   /* ---------- Claude ---------- */
   async function client() {
     if (!sdk) sdk = (await import("./vendor/anthropic.js")).default;
-    if (key) return new sdk({ apiKey: key, dangerouslyAllowBrowser: true });
-    // The Worker adds the real key, so the browser only needs a placeholder.
-    return new sdk({ apiKey: "shared-tutor", baseURL: SHARED_TUTOR_URL, dangerouslyAllowBrowser: true, defaultHeaders: { "x-visitor-id": visitor } });
+    return new sdk({ apiKey: key, dangerouslyAllowBrowser: true });
+  }
+
+  // Adds the question, plus a level note if the level changed, and returns a function that takes them back
+  // out (for when no answer comes).
+  function addTurn(text) {
+    const before = history.length;
+    const prevLevel = appliedLevel;
+    history.push({ role: "user", content: text });
+    if (level !== appliedLevel) {
+      history.push({ role: "system", content: LEVEL_NOTES[level] });
+      appliedLevel = level;
+    }
+    return () => { history.length = before; appliedLevel = prevLevel; };
   }
 
   // After a mid-answer fallback to another model, only the text before the switch is echoed back,
@@ -184,9 +196,6 @@ export function startTutor({ terms, units }) {
 
   function friendlyError(err) {
     if (!sdk) return "I couldn't load the AI part of the page. Check your internet and try again.";
-    if (!key && err instanceof sdk.RateLimitError) return "Lots of questions at once! Wait a minute, then try again.";
-    if (!key && err instanceof sdk.APIError && [401, 403].includes(err.status)) return "The shared tutor isn't working right now. Please try again later, or use your own Claude API key below.";
-    if (!key && err instanceof sdk.BadRequestError && /credit/i.test(err.message)) return "The shared tutor has used up its budget for now. Please try again later, or use your own Claude API key below.";
     if (err instanceof sdk.AuthenticationError) return "That API key didn't work. Check that you copied the whole key, or connect a different one below.";
     if (err instanceof sdk.PermissionDeniedError) return "This API key isn't allowed to use Claude. Try a different key.";
     if (err instanceof sdk.RateLimitError) return "Lots of questions at once! Wait a few seconds and try again.";
@@ -198,19 +207,12 @@ export function startTutor({ terms, units }) {
   }
 
   async function askClaude(text, el) {
-    const before = history.length;
-    const prevLevel = appliedLevel;
-    history.push({ role: "user", content: text });
-    if (level !== appliedLevel) {
-      history.push({ role: "system", content: LEVEL_NOTES[level] });
-      appliedLevel = level;
-    }
-    const undo = () => { history.length = before; appliedLevel = prevLevel; };
-
+    const undo = addTurn(text);
     let shown = "";
     try {
       const anthropic = await client();
-      stream = anthropic.beta.messages.stream(buildRequest(history));
+      const stream = anthropic.beta.messages.stream(buildRequest(history));
+      stop = () => stream.abort();
       for await (const event of stream) {
         if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
           shown += event.delta.text;
@@ -237,9 +239,83 @@ export function startTutor({ terms, units }) {
       console.error(err);
       el.classList.add("msg-err");
       el.innerHTML = md(friendlyError(err));
-      if (key && err instanceof sdk.AuthenticationError) { keybox.open = true; showKeyState("That key didn't work.", "bad"); }
+      if (err instanceof sdk.AuthenticationError) { keybox.open = true; showKeyState("That key didn't work.", "bad"); }
     } finally {
-      stream = null;
+      stop = null;
+    }
+  }
+
+  /* ---------- the free shared tutor ---------- */
+  // It takes and returns plain text; Claude's answers (from a visitor's own key) are reduced to their text.
+  const plain = (m) => ({
+    role: m.role,
+    content: typeof m.content === "string" ? m.content : m.content.filter((b) => b.type === "text").map((b) => b.text).join(""),
+  });
+
+  async function askFree(text, el) {
+    const undo = addTurn(text);
+    const controller = new AbortController();
+    stop = () => controller.abort();
+    let shown = "";
+    let cutOff = false;
+    try {
+      const res = await fetch(`${SHARED_TUTOR_URL}/v1/chat`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-visitor-id": visitor },
+        body: JSON.stringify({ messages: history.map(plain) }),
+        signal: controller.signal,
+      });
+      if (!res.ok) {
+        const problem = (await res.json().catch(() => null))?.error;
+        undo();
+        if (problem?.type === "daily_limit") {
+          el.innerHTML = `<p class="msg-note">Stat Buddy has used up today's free AI answers, so here's what the study guide says. Full answers are back tomorrow.</p>${md(guideAnswer(text))}`;
+          return;
+        }
+        el.classList.add("msg-err");
+        el.innerHTML = md(problem?.type === "busy" ? "Lots of questions at once! Wait a minute, then try again."
+          : ["too_long", "bad_request"].includes(problem?.type) ? problem.message
+          : "The free tutor isn't answering right now. Please try again in a minute.");
+        return;
+      }
+      const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+      let buffer = "";
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += value;
+        const events = buffer.split("\n\n");
+        buffer = events.pop();
+        for (const event of events) {
+          if (!event.startsWith("data: ")) continue;
+          const data = JSON.parse(event.slice(6));
+          if (data.text) {
+            shown += data.text;
+            el.innerHTML = md(shown);
+            log.scrollTop = log.scrollHeight;
+          }
+          if (data.done && data.finish === "length") cutOff = true;
+        }
+      }
+      if (!shown.trim()) {
+        undo();
+        el.innerHTML = md("Hmm, I didn't come up with an answer. Could you ask that another way?");
+        return;
+      }
+      history.push({ role: "assistant", content: [{ type: "text", text: shown }] });
+      if (cutOff) el.insertAdjacentHTML("beforeend", `<p class="msg-note">That answer got cut off. Ask me to keep going.</p>`);
+    } catch (err) {
+      undo();
+      if (err.name === "AbortError") {
+        el.innerHTML = shown ? md(shown) : "";
+        el.insertAdjacentHTML("beforeend", `<p class="msg-note">Stopped.</p>`);
+        return;
+      }
+      console.error(err);
+      el.classList.add("msg-err");
+      el.innerHTML = md("I couldn't reach the tutor. Check your internet connection and try again.");
+    } finally {
+      stop = null;
     }
   }
 
@@ -253,8 +329,10 @@ export function startTutor({ terms, units }) {
     const el = bubble("bot", `<span class="typing" aria-label="Stat Buddy is typing"><i></i><i></i><i></i></span>`);
     setBusy(true);
     try {
-      if (key || shared) {
+      if (key) {
         await askClaude(text, el);
+      } else if (shared) {
+        await askFree(text, el);
       } else {
         await new Promise((r) => setTimeout(r, 350));
         el.innerHTML = `<p class="msg-tag"><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>From the study guide</p>${md(guideAnswer(text))}`;
@@ -280,7 +358,7 @@ export function startTutor({ terms, units }) {
   });
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (busy) { stream?.abort(); return; }
+    if (busy) { stop?.(); return; }
     send(input.value);
   });
   suggest.addEventListener("click", (e) => { const c = e.target.closest(".chip"); if (c) send(c.textContent); });
@@ -300,7 +378,7 @@ export function startTutor({ terms, units }) {
   if (savedLevel === "exam") $('[data-level="exam"]', levelChips).click();
 
   $("#chat-new").addEventListener("click", () => {
-    stream?.abort();
+    stop?.();
     history = [];
     appliedLevel = "simple";
     toldAboutKey = false;
