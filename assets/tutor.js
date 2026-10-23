@@ -1,30 +1,9 @@
-// Stat Buddy, the AI tutor. With a Claude API key it calls Claude from the browser through the official
-// Anthropic SDK (bundled in assets/vendor). Without one it answers from this guide's key terms and lessons.
+// Stat Buddy, the AI tutor. It calls Claude through the official Anthropic SDK (bundled in assets/vendor):
+// through the site's shared tutor Worker when SHARED_TUTOR_URL is set, or straight from the browser with
+// the visitor's own API key. With neither, it answers from this guide's key terms and lessons.
 import { $, esc, store, setPressed } from "./util.js";
-
-const MODEL = "claude-opus-5-5";
-
-// Kept byte-for-byte the same for the whole conversation: changing it mid-chat would invalidate the
-// model's earlier thinking. Level changes are appended as system messages instead (see LEVEL_NOTES).
-const SYSTEM = `You are Stat Buddy, a friendly tutor on the "AP Stats, Made Simple" study website. High school students come to you to learn AP Statistics.
-
-How to explain:
-- Explain the way you would to a smart 5th grader. Use short sentences and everyday words.
-- When you have to use a statistics word (like "standard deviation" or "p-value"), say what it means in plain words right away.
-- Use small, friendly examples: pizza slices, basketball free throws, candy colors, test scores, pets, video games.
-- For any calculation, go one small step at a time and show the numbers.
-- Keep answers short: usually 3 to 8 sentences, or a short list. Offer to go deeper instead of writing a lot.
-- Write math with plain symbols (x̄, p̂, μ, σ, √, ±, ≤, ≥, ÷, ×), never LaTeX and never dollar signs around math.
-- You may use **bold** for the key idea and simple bulleted or numbered lists. Don't use tables or headings.
-
-Accuracy matters most. Keep the words simple, but the statistics must be correct and match how the AP Statistics course teaches it: checking conditions (Random, 10%, Normal/Large counts), the four steps State, Plan, Do, Conclude, and conclusions written in context. If you're not sure about a number, say so.
-
-If a student pastes a homework or test question, help them understand how to solve it step by step and check that they follow along. If a question isn't about statistics, math or studying, kindly steer back to stats. Be warm and encouraging. Never make a student feel dumb for asking.`;
-
-const LEVEL_NOTES = {
-  exam: "From now on in this chat: still explain in simple words, but also give the exact AP Statistics vocabulary, and show how a full-credit free-response answer would be worded.",
-  simple: "From now on in this chat: go back to super-simple 5th-grade explanations only. Skip the formal AP wording unless the student asks for it.",
-};
+import { MODEL, LEVEL_NOTES, buildRequest } from "./tutor-prompt.js";
+import { SHARED_TUTOR_URL } from "./config.js";
 
 const GREETING = "Hi! I'm **Stat Buddy**. Ask me anything about AP Statistics and I'll explain it in simple words. Not sure where to start? Tap a question below.";
 
@@ -84,6 +63,10 @@ export function startTutor({ terms, units }) {
   let busy = false;
   let sdk = null;
   let toldAboutKey = false;
+  const shared = Boolean(SHARED_TUTOR_URL);
+  // A random id for this page visit, so the Worker can share its rate limit fairly between students on
+  // one school network. It isn't stored anywhere.
+  const visitor = crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2);
 
   /* ---------- rendering ---------- */
   function bubble(role, html, extraClass = "") {
@@ -147,9 +130,9 @@ export function startTutor({ terms, units }) {
   function showKeyState(note, tone) {
     const on = Boolean(key);
     keybox.classList.toggle("on", on);
-    $("#chat-mode").textContent = on ? "AI tutor · powered by Claude" : "Study-guide mode · connect Claude for full answers";
-    $("#chat-mode").classList.toggle("on", on);
-    $("#key-sum").textContent = on ? "Claude is connected" : "Connect Claude for full AI answers";
+    $("#chat-mode").textContent = on ? "AI tutor · powered by Claude, with your key" : shared ? "AI tutor · powered by Claude" : "Study-guide mode · connect Claude for full answers";
+    $("#chat-mode").classList.toggle("on", on || shared);
+    $("#key-sum").textContent = on ? "Using your own Claude API key" : shared ? "Optional: use your own Claude API key" : "Connect Claude for full AI answers";
     $("#key-forget").hidden = !on;
     const status = $("#key-status");
     status.textContent = note || "";
@@ -186,7 +169,9 @@ export function startTutor({ terms, units }) {
   /* ---------- Claude ---------- */
   async function client() {
     if (!sdk) sdk = (await import("./vendor/anthropic.js")).default;
-    return new sdk({ apiKey: key, dangerouslyAllowBrowser: true });
+    if (key) return new sdk({ apiKey: key, dangerouslyAllowBrowser: true });
+    // The Worker adds the real key, so the browser only needs a placeholder.
+    return new sdk({ apiKey: "shared-tutor", baseURL: SHARED_TUTOR_URL, dangerouslyAllowBrowser: true, defaultHeaders: { "x-visitor-id": visitor } });
   }
 
   // After a mid-answer fallback to another model, only the text before the switch is echoed back,
@@ -199,6 +184,9 @@ export function startTutor({ terms, units }) {
 
   function friendlyError(err) {
     if (!sdk) return "I couldn't load the AI part of the page. Check your internet and try again.";
+    if (!key && err instanceof sdk.RateLimitError) return "Lots of questions at once! Wait a minute, then try again.";
+    if (!key && err instanceof sdk.APIError && [401, 403].includes(err.status)) return "The shared tutor isn't working right now. Please try again later, or use your own Claude API key below.";
+    if (!key && err instanceof sdk.BadRequestError && /credit/i.test(err.message)) return "The shared tutor has used up its budget for now. Please try again later, or use your own Claude API key below.";
     if (err instanceof sdk.AuthenticationError) return "That API key didn't work. Check that you copied the whole key, or connect a different one below.";
     if (err instanceof sdk.PermissionDeniedError) return "This API key isn't allowed to use Claude. Try a different key.";
     if (err instanceof sdk.RateLimitError) return "Lots of questions at once! Wait a few seconds and try again.";
@@ -222,15 +210,7 @@ export function startTutor({ terms, units }) {
     let shown = "";
     try {
       const anthropic = await client();
-      stream = anthropic.beta.messages.stream({
-        model: MODEL,
-        max_tokens: 16000,
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-        output_config: { effort: "low" },
-        system: SYSTEM,
-        messages: history,
-      });
+      stream = anthropic.beta.messages.stream(buildRequest(history));
       for await (const event of stream) {
         if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
           shown += event.delta.text;
@@ -257,7 +237,7 @@ export function startTutor({ terms, units }) {
       console.error(err);
       el.classList.add("msg-err");
       el.innerHTML = md(friendlyError(err));
-      if (sdk && err instanceof sdk.AuthenticationError) { keybox.open = true; showKeyState("That key didn't work.", "bad"); }
+      if (key && err instanceof sdk.AuthenticationError) { keybox.open = true; showKeyState("That key didn't work.", "bad"); }
     } finally {
       stream = null;
     }
@@ -273,7 +253,7 @@ export function startTutor({ terms, units }) {
     const el = bubble("bot", `<span class="typing" aria-label="Stat Buddy is typing"><i></i><i></i><i></i></span>`);
     setBusy(true);
     try {
-      if (key) {
+      if (key || shared) {
         await askClaude(text, el);
       } else {
         await new Promise((r) => setTimeout(r, 350));

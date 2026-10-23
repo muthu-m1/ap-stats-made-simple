@@ -1,0 +1,27 @@
+# The shared tutor Worker. Deploy with `npx wrangler deploy`; set the Claude API key once with
+# `npx wrangler secret put ANTHROPIC_API_KEY` (it is stored by Cloudflare, never in this repository).
+name = "ap-stats-tutor"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Only pages from these sites may use the tutor.
+ALLOWED_ORIGINS = "https://muthu-m1.github.io"
+
+# Each visitor (one open page) can ask 6 questions a minute.
+[[ratelimits]]
+name = "PER_VISITOR"
+namespace_id = "2701"
+
+  [ratelimits.simple]
+  limit = 6
+  period = 60
+
+# Everyone together can ask 60 questions a minute (counted per Cloudflare location).
+[[ratelimits]]
+name = "GLOBAL"
+namespace_id = "2702"
+
+  [ratelimits.simple]
+  limit = 60
+  period = 60

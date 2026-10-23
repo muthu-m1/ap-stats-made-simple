@@ -12,10 +12,33 @@ A static site with no backend, no trackers and no accounts. Same design system a
 
 ## The AI tutor
 
-Stat Buddy calls Claude (`claude-opus-5-5`) straight from the visitor's browser with the visitor's own Claude API key,
-which stays in their browser (this visit only, unless they tick "remember"). Without a key it answers from the guide's
-key terms and lessons. It streams answers, keeps the conversation append-only, switches explanation level with a
-mid-conversation system message, and opts in to server-side refusal fallbacks (`fallbacks: "default"`).
+Stat Buddy talks to Claude (`claude-opus-5-5`) in one of three ways:
+
+1. **Shared tutor (no key needed).** When `assets/config.js` sets `SHARED_TUTOR_URL`, questions go to the Worker in
+   `worker/`, which adds the site's own API key (stored as a Cloudflare secret, never in this repository).
+2. **The visitor's own key.** Straight from the browser to Anthropic; the key stays in their browser.
+3. **No AI.** Answers come from the guide's key terms and lessons.
+
+Its instructions and request settings live in `assets/tutor-prompt.js`, shared by the site and the Worker. It streams
+answers, keeps the conversation append-only, switches explanation level with a mid-conversation system message, and
+opts in to server-side refusal fallbacks (`fallbacks: "default"`).
+
+### The shared tutor Worker
+
+`worker/` is a Cloudflare Worker that only answers requests from the site, rate-limits each visitor (6 questions a
+minute) and everyone together (60 a minute per location), checks the conversation, and builds the Claude request itself,
+so it can't be used for anything but Stat Buddy. Give its API key a monthly spend limit in the Claude Console.
+
+```
+cd worker
+npm install
+npx wrangler login
+npx wrangler secret put ANTHROPIC_API_KEY
+npx wrangler deploy
+npm test
+```
+
+`npm test` runs the Worker locally against a fake Claude API; it never calls the real one.
 
 ## Preview locally
 
